@@ -33,10 +33,41 @@ body {
     
 
 header {
-    background-image: url('../images/scenic.sanctuaries_20260419_1.mp4');
+    position: relative;
     min-height: 150px;
     text-align: center;
     padding: 40px;
+    overflow: hidden;
+}
+
+/* Vídeo como fundo */
+#video-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Conteúdo fica acima do vídeo */
+header > h1,
+header > h2,
+header > p {
+    position: relative;
+    z-index: 1;
+}
+
+header::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* escurece o vídeo */
+    z-index: 0;
 }
 
 header > h1 {
