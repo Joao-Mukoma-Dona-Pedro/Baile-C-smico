@@ -1,13 +1,65 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlayList</title>
-
+    <title>Playlist | Baile Cosmico</title>
     <link rel="stylesheet" href="../style/playlist.css">
 </head>
 <body>
-    <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. A vel asperiores ab nisi inventore cupiditate, aut atque labore cumque esse voluptate ipsum excepturi nobis alias, sit ut, natus voluptatum sequi?</h1>
+    <header class="playlist-hero">
+        <p class="playlist-eyebrow">Baile Cosmico</p>
+        <h1>Playlist do Baile</h1>
+        <p class="playlist-copy">
+            Uma selecao de musicas para embalar o Baile Cosmico. Clica numa faixa para destacar e abre a versao oficial no Spotify.
+        </p>
+    </header>
+
+    <main class="playlist-layout">
+        <section class="player-card" aria-labelledby="faixa-destaque">
+            <div class="cover-shell">
+                <img
+                    id="cover-atual"
+                    class="cover-atual"
+                    src="../images/foto-header.jpeg"
+                    alt="Capa da faixa selecionada"
+                >
+            </div>
+
+            <div class="player-info">
+                <p class="player-label" id="faixa-destaque">Faixa em destaque</p>
+                <h2 id="titulo-atual">Addicted</h2>
+                <p id="artista-atual">Jorja Smith</p>
+            </div>
+
+            <p id="descricao-atual" class="status-player">
+                Uma faixa suave e envolvente para abrir a atmosfera do baile com elegancia.
+            </p>
+
+            <p id="faixas-atual" class="album-highlights">
+                Mood: suave, noturno e marcante.
+            </p>
+
+            <div class="spotify-actions">
+                <a id="spotify-link" class="spotify-btn" href="https://open.spotify.com/search/addicted%20jorja%20smith" target="_blank" rel="noopener noreferrer">
+                    Abrir faixa no Spotify
+                </a>
+                <a id="spotify-playlist-link" class="spotify-btn secondary" href="https://open.spotify.com/search/baile%20cosmico%20playlist" target="_blank" rel="noopener noreferrer">
+                    Explorar mais no Spotify
+                </a>
+            </div>
+        </section>
+
+        <section class="playlist-panel" aria-labelledby="lista-faixas">
+            <div class="panel-top">
+                <h2 id="lista-faixas">Faixas</h2>
+                <p>Uma mistura de indie, rap, rock e atmosfera noturna.</p>
+            </div>
+
+            <div id="playlist-grid" class="playlist-grid"></div>
+        </section>
+    </main>
+
+    <script src="../js/playlist.js"></script>
 </body>
 </html>

@@ -1,11 +1,390 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 
 * {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --card: rgba(10, 19, 40, 0.82);
+    --card-border: rgba(255, 255, 255, 0.11);
+    --text: #9CA5D9;
+    --muted: #b9c4d9;
+    --accent: #9CA5D9;
+    --accent-strong: #ff8f5a;
+    --spotify: #1db954;
+    --spotify-dark: #169c46;
+    --shadow: 0 22px 50px rgba(0, 0, 0, 0.28);
+}
+
+*::selection {
+    background: rgba(245, 193, 92, 0.35);
 }
 
 body {
-    background-color: rgb(211, 18, 18);
-    color: blue;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.22) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.16) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.15) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 65% 40%, rgba(245, 193, 92, 0.2) 0 1px, transparent 2px),
+        linear-gradient(180deg, #02050d 0%, #071120 45%, #0a1730 100%);
+    background-size: 240px 240px, 320px 320px, 280px 280px, 360px 360px, auto;
+    padding: 32px 20px 48px;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body::before {
+    background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.95) 0 1px, transparent 1.6px),
+        radial-gradient(circle, rgba(255, 255, 255, 0.5) 0 1px, transparent 1.8px),
+        radial-gradient(circle, rgba(245, 193, 92, 0.7) 0 1.2px, transparent 2px);
+    background-size: 180px 180px, 260px 260px, 340px 340px;
+    background-position: 0 0, 40px 80px, 120px 30px;
+    opacity: 0.55;
+    animation: starDrift 80s linear infinite, starPulse 6s ease-in-out infinite alternate;
+}
+
+body::after {
+    background:
+        radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.9) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 65% 60%, rgba(255, 255, 255, 0.55) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 80% 15%, rgba(255, 143, 90, 0.45) 0 1.4px, transparent 2px);
+    background-size: 220px 220px, 300px 300px, 420px 420px;
+    opacity: 0.38;
+    animation: starDriftReverse 120s linear infinite, starPulse 9s ease-in-out infinite;
+}
+
+@keyframes starDrift {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(-160px, 120px, 0);
+    }
+}
+
+@keyframes starDriftReverse {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(180px, -140px, 0);
+    }
+}
+
+@keyframes starPulse {
+    from {
+        opacity: 0.3;
+    }
+    to {
+        opacity: 0.65;
+    }
+}
+
+@keyframes coverSpin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes coverSwap {
+    0% {
+        opacity: 0.55;
+        transform: scale(0.96);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.playlist-hero {
+    max-width: 1100px;
+    margin: 0 auto 28px;
+    text-align: center;
+}
+
+.playlist-eyebrow {
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-size: 0.82rem;
+    margin-bottom: 10px;
+}
+
+.playlist-hero h1 {
+    font-size: clamp(2.2rem, 4vw, 4rem);
+    margin-bottom: 10px;
+}
+
+.playlist-copy {
+    max-width: 650px;
+    margin: 0 auto;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.playlist-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 24px;
+}
+
+.player-card,
+.playlist-panel {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 28px;
+    backdrop-filter: blur(14px);
+    box-shadow: var(--shadow);
+}
+
+.player-card {
+    padding: 24px;
+    position: sticky;
+    top: 24px;
+    height: fit-content;
+}
+
+.cover-shell {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 20px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    padding: 10px;
+    background: linear-gradient(135deg, rgba(245, 193, 92, 0.55), rgba(255, 143, 90, 0.2), rgba(255, 255, 255, 0.08));
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.34);
+    animation: coverSpin 30s linear infinite;
+}
+
+.cover-atual {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.cover-atual.troca {
+    animation: coverSwap 0.45s ease;
+}
+
+.player-info h2 {
+    font-size: 1.7rem;
+    margin-bottom: 6px;
+}
+
+.player-info p {
+    color: var(--muted);
+}
+
+.player-label {
+    color: var(--accent) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.78rem;
+    margin-bottom: 8px;
+}
+
+.status-player {
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 0.98rem;
+    margin-top: 18px;
+}
+
+.album-highlights {
+    color: var(--accent);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-top: 14px;
+}
+
+.spotify-actions {
+    margin-top: 22px;
+    display: grid;
+    gap: 12px;
+}
+
+.spotify-btn,
+.track-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 18px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--spotify), var(--spotify-dark));
+    color: #04110a;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.spotify-btn {
+    width: 100%;
+}
+
+.spotify-btn.secondary {
+    background: linear-gradient(135deg, rgba(245, 193, 92, 0.95), rgba(255, 143, 90, 0.9));
+}
+
+.spotify-btn:hover,
+.track-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 24px rgba(29, 185, 84, 0.25);
+}
+
+.spotify-btn.secondary:hover {
+    box-shadow: 0 14px 24px rgba(245, 193, 92, 0.22);
+}
+
+.playlist-panel {
+    padding: 24px;
+}
+
+.panel-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.panel-top h2 {
+    font-size: 1.5rem;
+}
+
+.panel-top p {
+    color: var(--muted);
+    text-align: right;
+}
+
+.playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.track-card {
+    border: 1px solid transparent;
+    border-radius: 22px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.track-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(245, 193, 92, 0.35);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.22);
+}
+
+.track-card.ativa {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px rgba(245, 193, 92, 0.25);
+}
+
+.track-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
+
+.track-content {
+    padding: 14px;
+}
+
+.track-content h3 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.track-content p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.4;
+}
+
+.track-tag {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 12px;
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.album-mini {
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.track-link {
+    width: 100%;
+    font-size: 0.92rem;
+}
+
+@media (max-width: 920px) {
+    .playlist-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .player-card {
+        position: static;
+    }
+}
+
+@media (max-width: 640px) {
+    body {
+        padding: 24px 14px 36px;
+    }
+
+    .player-card,
+    .playlist-panel {
+        padding: 18px;
+        border-radius: 22px;
+    }
+
+    .panel-top {
+        display: block;
+    }
+
+    .panel-top p {
+        text-align: left;
+        margin-top: 8px;
+    }
+
+    .playlist-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cover-shell {
+        max-width: 240px;
+    }
 }
