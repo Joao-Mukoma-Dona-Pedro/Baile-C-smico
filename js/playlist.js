@@ -288,7 +288,7 @@ function renderizarPlaylist() {
         card.className = "track-card";
         card.dataset.index = indice;
         card.innerHTML = `
-            <img src="${track.capa}" alt="Capa de ${track.titulo}">
+            <img src="${track.capa}" alt="Capa de ${track.titulo}" loading="lazy" decoding="async">
             <div class="track-content">
                 <h3>${track.titulo}</h3>
                 <p>${track.artista}</p>
@@ -319,4 +319,3 @@ document.addEventListener("keydown", (event) => {
 
 renderizarPlaylist();
 selecionarFaixa(0);
-

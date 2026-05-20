@@ -3,14 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baile Cósmico</title>
+    <meta name="description" content="Baile Cósmico é o site narrativo do Majestic Eighteen de Natasha, com convite, galeria, depoimentos, curiosidades e playlist especial.">
+    <meta name="theme-color" content="#070a1f">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://baile-cosmico.vercel.app/">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preload" as="image" href="imagens/foto-header.jpeg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Baile Cósmico">
+    <meta property="og:title" content="Baile Cósmico | Majestic Eighteen">
+    <meta property="og:description" content="Entre no universo emocional e cósmico do Majestic Eighteen de Natasha.">
+    <meta property="og:url" content="https://baile-cosmico.vercel.app/">
+    <meta property="og:image" content="https://baile-cosmico.vercel.app/imagens/foto-header.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Baile Cósmico | Majestic Eighteen de Natasha</title>
     <link rel="stylesheet" href="style/style.css">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Event",
+            "name": "Baile Cósmico - Majestic Eighteen",
+            "description": "Celebração dos dezoito anos de Natasha em uma experiência narrativa com convite, galeria, depoimentos e playlist.",
+            "startDate": "2026-07-27T00:00:00+01:00",
+            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "image": "https://baile-cosmico.vercel.app/imagens/foto-header.jpeg",
+            "url": "https://baile-cosmico.vercel.app/",
+            "organizer": {
+                "@type": "Person",
+                "name": "Natasha"
+            }
+        }
+    </script>
 </head>
-<body>
-    <header>
+<body data-page-title="Baile Cósmico | Majestic Eighteen de Natasha">
+    <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+    <header role="banner">
         <h1>Baile Cósmico</h1>
         <h2>Tasha Hars</h2>
-        <div id="countdown">
+        <div id="countdown" aria-label="Contagem regressiva para o evento">
             <div class="time-box"><span id="days">00</span><p>DAYS</p></div>
             <div class="time-box"><span id="hours">00</span><p>HOURS</p></div>
             <div class="time-box"><span id="minutes">00</span><p>MINUTES</p></div>
@@ -18,7 +49,7 @@
         </div>
     </header>
 
-    <nav class="links">
+    <nav class="links" aria-label="Navegação principal">
         <a href="pages/convite.html">Convite</a>
         <a href="pages/galeria.html">Galeria</a>
         <a href="pages/depoimentos.html">Depoimentos</a>
@@ -27,9 +58,10 @@
         <a href="pages/agradecimentos.html">Agradecimentos</a>
     </nav>
 
-    <main>
+    <main id="conteudo">
         <article>
-            <img src="imagens/foto32.jpeg" alt="Retrato do Baile Cósmico">
+            <h2>Um convite para atravessar este momento</h2>
+            <img src="imagens/foto32.jpeg" alt="Retrato artístico de Natasha para o Baile Cósmico" width="1200" height="1600" decoding="async" fetchpriority="high">
             <p>
                 Belonging in spaces between, ignoring these boxes I used to fit into. Just a way to remind myself that I exist, and to be grateful for this becoming eighteen.
                 <br><br>
@@ -56,6 +88,7 @@
         <p>Desenvolvido por <a href="https://github.com/Joao-Mukoma-Dona-Pedro" target="_blank" rel="noopener noreferrer">João Pedro</a></p>
     </footer>
 
+    <script src="js/seo.js" defer></script>
     <script>
         function atualizarCountdown() {
             const destino = new Date("2026-07-27T00:00:00").getTime();

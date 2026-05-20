@@ -3,19 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Playlist | Baile Cosmico</title>
+    <meta name="description" content="Playlist do Baile Cósmico com músicas escolhidas para criar a atmosfera do Majestic Eighteen de Natasha.">
+    <meta name="theme-color" content="#070a1f">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://baile-cosmico.vercel.app/pages/playlist.html">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <meta property="og:type" content="music.playlist">
+    <meta property="og:site_name" content="Baile Cósmico">
+    <meta property="og:title" content="Playlist do Baile | Baile Cósmico">
+    <meta property="og:description" content="Uma seleção musical para embalar o universo do Baile Cósmico.">
+    <meta property="og:url" content="https://baile-cosmico.vercel.app/pages/playlist.html">
+    <meta property="og:image" content="https://baile-cosmico.vercel.app/imagens/foto-header.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Playlist do Baile | Baile Cósmico</title>
     <link rel="stylesheet" href="../style/playlist.css">
 </head>
-<body>
-    <header class="playlist-hero">
-        <p class="playlist-eyebrow">Baile Cosmico</p>
+<body data-page-title="Playlist do Baile">
+    <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+    <header class="playlist-hero" role="banner">
+        <nav class="playlist-nav" aria-label="Navegação principal">
+            <a href="../index.html">Início</a>
+            <a href="galeria.html">Galeria</a>
+            <a href="depoimentos.html">Depoimentos</a>
+        </nav>
+        <p class="playlist-eyebrow">Baile Cósmico</p>
         <h1>Playlist do Baile</h1>
         <p class="playlist-copy">
-            Uma selecao de musicas para embalar o Baile Cosmico. Clica numa faixa para destacar e abre a versao oficial no Spotify.
+            Uma seleção de músicas para embalar o Baile Cósmico. Clica numa faixa para destacar e abre a versão oficial no Spotify.
         </p>
     </header>
 
-    <main class="playlist-layout">
+    <main id="conteudo" class="playlist-layout">
         <section class="player-card" aria-labelledby="faixa-destaque">
             <div class="cover-shell">
                 <img
@@ -23,6 +41,10 @@
                     class="cover-atual"
                     src="../imagens/foto-header.jpeg"
                     alt="Capa da faixa selecionada"
+                    width="600"
+                    height="600"
+                    decoding="async"
+                    fetchpriority="high"
                 >
             </div>
 
@@ -60,6 +82,7 @@
         </section>
     </main>
 
-    <script src="../js/playlist.js"></script>
+    <script src="../js/seo.js" defer></script>
+    <script src="../js/playlist.js" defer></script>
 </body>
 </html>
