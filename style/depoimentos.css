@@ -1,0 +1,377 @@
+@charset "utf-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&family=Sriracha&family=Nunito:ital,wght@0,300..900;1,300..900&display=swap");
+
+:root {
+    --ink: #091849;
+    --night: #070a1f;
+    --mist: #eef1ff;
+    --lilac: #9ca5d9;
+    --gold: #f5d188;
+    --glass: rgba(4, 7, 22, 0.72);
+    --font-title: "Passion One", Impact, sans-serif;
+    --font-poem: "Sriracha", cursive;
+    --font-body: "Nunito", Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--night);
+    color: var(--mist);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+}
+
+.hero {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(7, 10, 31, 0.25), rgba(7, 10, 31, 0.92)),
+        url("../images/foto-header.jpeg") center / cover fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.links {
+    width: 100%;
+    padding: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: rgba(8, 12, 37, 0.62);
+    backdrop-filter: blur(12px);
+}
+
+.links a {
+    color: #f8f7ff;
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    padding: 9px 13px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.links a:hover,
+.links a:focus-visible {
+    background: var(--lilac);
+    color: var(--ink);
+    transform: translateY(-2px);
+}
+
+.hero-content {
+    width: min(900px, calc(100% - 32px));
+    margin: auto;
+    padding: 18vh 0 22vh;
+    text-shadow: 0 8px 28px rgba(0, 0, 0, 0.72);
+}
+
+.eyebrow {
+    color: var(--gold);
+    font-weight: 900;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.hero h1 {
+    font-family: var(--font-title);
+    font-variant: small-caps;
+    letter-spacing: 0.02em;
+    font-size: clamp(4rem, 14vw, 10rem);
+    line-height: 0.85;
+}
+
+.hero h1 span {
+    display: block;
+}
+
+.hero-content > p:last-child {
+    width: min(720px, 100%);
+    margin: 24px auto 0;
+    font-size: clamp(1rem, 2.4vw, 1.35rem);
+    line-height: 1.8;
+}
+
+.testimonial-section {
+    min-height: 100vh;
+    padding: clamp(90px, 16vh, 180px) 20px;
+    display: grid;
+    place-items: center;
+    position: relative;
+    isolation: isolate;
+}
+
+.normal {
+    background:
+        radial-gradient(circle at top left, rgba(156, 165, 217, 0.32), transparent 34%),
+        linear-gradient(135deg, #fffaf0 0%, #eef1ff 52%, #fdf8ef 100%);
+    color: var(--ink);
+}
+
+.imagem {
+    color: #ffffff;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.imagem::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+        linear-gradient(180deg, rgba(4, 7, 22, 0.2), rgba(4, 7, 22, 0.66)),
+        radial-gradient(circle at center, rgba(47, 29, 177, 0.15), rgba(0, 0, 0, 0.72));
+}
+
+.image-one {
+    background-image: url("../images/Foto 14.jpeg");
+}
+
+.image-two {
+    background-image: url("../images/Cosmic Wonders Mobile Wallpaper Pack_ 5 Space….jfif");
+}
+
+.image-three {
+    background-image: url("../images/“Some say we’re just stardust drifting in the….jfif");
+}
+
+.image-four {
+    background-image: url("../images/foto29.jpeg");
+}
+
+.image-five {
+    background-image: url("../images/Foto 15.jpeg");
+}
+
+.image-six {
+    background-image: url("../images/foto31.jpeg");
+}
+
+.cordel-card {
+    width: min(790px, 100%);
+    text-align: center;
+    padding: clamp(28px, 6vw, 64px);
+}
+
+.imagem .cordel-card {
+    background: var(--glass);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(5px);
+}
+
+.number {
+    color: var(--gold);
+    font-family: var(--font-body);
+    font-size: clamp(0.82rem, 2vw, 1rem);
+    font-weight: 1000;
+    letter-spacing: 0.45em;
+    margin-bottom: 18px;
+}
+
+.normal .number {
+    color: #7b5b16;
+}
+
+.question {
+    font-family: var(--font-title);
+    font-variant: small-caps;
+    font-size: clamp(2.4rem, 7vw, 5.8rem);
+    line-height: 0.95;
+    margin-bottom: clamp(28px, 5vh, 52px);
+}
+
+.normal .question {
+    color: #18265d;
+}
+
+.imagem .question {
+    color: #f7dd9c;
+    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.72);
+}
+
+.cordel-card h2 {
+    display: inline-block;
+    color: var(--gold);
+    background: #091849;
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2.8vw, 1.35rem);
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    margin-bottom: clamp(24px, 4vh, 42px);
+}
+
+.imagem .cordel-card h2 {
+    color: var(--ink);
+    background: var(--gold);
+}
+
+.answer {
+    font-family: var(--font-poem);
+    font-size: clamp(1.55rem, 4vw, 3rem);
+    line-height: 1.85;
+    text-wrap: balance;
+}
+
+.normal .answer {
+    color: #16214f;
+}
+
+.imagem .answer {
+    text-shadow: 0 3px 18px rgba(0, 0, 0, 0.78);
+}
+
+.dense .cordel-card {
+    width: min(920px, 100%);
+}
+
+.dense .question {
+    font-size: clamp(2.1rem, 5.8vw, 4.8rem);
+}
+
+.dense .answer {
+    font-size: clamp(1.25rem, 3vw, 2.25rem);
+    line-height: 1.68;
+}
+
+.epic {
+    min-height: auto;
+    padding-top: clamp(90px, 13vh, 150px);
+    padding-bottom: clamp(90px, 13vh, 150px);
+}
+
+.epic .cordel-card {
+    width: min(980px, 100%);
+}
+
+.epic .question {
+    font-size: clamp(2rem, 5vw, 4.4rem);
+}
+
+.epic .answer {
+    font-size: clamp(1.12rem, 2.3vw, 1.85rem);
+    line-height: 1.62;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(44px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+footer {
+    background: var(--lilac);
+    color: var(--ink);
+    text-align: center;
+    padding: 18px;
+    font-weight: 800;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+footer a:hover,
+footer a:focus-visible {
+    text-decoration: underline;
+}
+
+@media (max-width: 760px) {
+    .hero,
+    .imagem {
+        background-attachment: scroll;
+    }
+
+    .links {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+    }
+
+    .links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .links a {
+        flex: 0 0 auto;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: 360px;
+        padding: 12vh 16px 18vh;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.55rem, 12vw, 3.25rem);
+        line-height: 0.98;
+    }
+
+    .hero-content > p:last-child {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .testimonial-section {
+        min-height: 92vh;
+        padding: 88px 16px;
+    }
+
+    .cordel-card {
+        padding: 28px 18px;
+    }
+
+    .imagem .cordel-card {
+        width: min(100%, 560px);
+    }
+
+    .answer {
+        line-height: 1.75;
+    }
+
+    .dense .answer,
+    .epic .answer {
+        line-height: 1.62;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .links a,
+    .reveal {
+        transition: none;
+    }
+}
