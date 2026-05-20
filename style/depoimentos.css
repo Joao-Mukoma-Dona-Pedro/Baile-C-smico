@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 
 @import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&family=Sriracha&family=Nunito:ital,wght@0,300..900;1,300..900&display=swap");
 
@@ -40,7 +40,7 @@ a {
     min-height: 100vh;
     background:
         linear-gradient(180deg, rgba(7, 10, 31, 0.25), rgba(7, 10, 31, 0.92)),
-        url("../images/foto-header.jpeg") center / cover fixed;
+        url("../imagens/foto-header.jpeg") center / cover fixed;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -146,27 +146,27 @@ a {
 }
 
 .image-one {
-    background-image: url("../images/Foto 14.jpeg");
+    background-image: url("../imagens/Foto 14.jpeg");
 }
 
 .image-two {
-    background-image: url("../images/Cosmic Wonders Mobile Wallpaper Pack_ 5 Space….jfif");
+    background-image: url("../imagens/H5 black sky background.jfif");
 }
 
 .image-three {
-    background-image: url("../images/“Some say we’re just stardust drifting in the….jfif");
+    background-image: url("../imagens/foto30.jpeg");
 }
 
 .image-four {
-    background-image: url("../images/foto29.jpeg");
+    background-image: url("../imagens/foto29.jpeg");
 }
 
 .image-five {
-    background-image: url("../images/Foto 15.jpeg");
+    background-image: url("../imagens/Foto 15.jpeg");
 }
 
 .image-six {
-    background-image: url("../images/foto31.jpeg");
+    background-image: url("../imagens/foto31.jpeg");
 }
 
 .cordel-card {
