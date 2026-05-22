@@ -3,46 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Convite oficial do Baile Cósmico, a celebração Majestic Eighteen de Natasha.">
+    <meta name="description" content="Convite oficial do Baile C&oacute;smico com gera&ccedil;&atilde;o din&acirc;mica de PDF personalizado.">
     <meta name="theme-color" content="#070a1f">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://baile-cosmico.vercel.app/pages/convite.html">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Baile Cósmico">
-    <meta property="og:title" content="Convite | Baile Cósmico">
-    <meta property="og:description" content="Um convite para entrar no universo do Majestic Eighteen de Natasha.">
+    <meta property="og:site_name" content="Baile C&oacute;smico">
+    <meta property="og:title" content="Convite | Baile C&oacute;smico">
+    <meta property="og:description" content="Gere o convite personalizado do Majestic Eighteen de Natasha.">
     <meta property="og:url" content="https://baile-cosmico.vercel.app/pages/convite.html">
     <meta property="og:image" content="https://baile-cosmico.vercel.app/imagens/foto-header.jpeg">
     <meta name="twitter:card" content="summary_large_image">
-    <title>Convite | Baile Cósmico</title>
+    <title>Convite | Baile C&oacute;smico</title>
     <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/invite-pdf.css">
 </head>
-<body data-page-title="Convite">
-    <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+<body class="invite-pdf-page" data-page-title="Convite">
+    <a class="skip-link" href="#conteudo">Saltar para o conte&uacute;do</a>
     <header role="banner">
         <h1>Convite</h1>
-        <h2>Baile Cósmico</h2>
+        <h2>Baile C&oacute;smico</h2>
     </header>
-    <nav class="links" aria-label="Navegação principal">
-        <a href="../index.html">Início</a>
+    <nav class="links" aria-label="Navega&ccedil;&atilde;o principal">
+        <a href="../index.html">In&iacute;cio</a>
         <a href="galeria.html">Galeria</a>
         <a href="depoimentos.html">Depoimentos</a>
         <a href="playlist.html">PlayList</a>
     </nav>
     <main id="conteudo">
-        <article>
-            <h2>Entra neste momento comigo</h2>
-            <img src="../imagens/foto-header.jpeg" alt="Máscara e céu cósmico do convite do Baile Cósmico" width="1200" height="800" decoding="async" fetchpriority="high">
-            <p>
-                Este é o convite para o Majestic Eighteen de Natasha: uma celebração de presença, memória, amizade e transformação.
-                O Baile Cósmico reúne carinho, música, fotografias e depoimentos num espaço feito para guardar este começo.
-            </p>
-        </article>
+        <section class="dynamic-invite" aria-labelledby="convite-dinamico-title">
+            <p class="eyebrow">convite oficial</p>
+            <h2 id="convite-dinamico-title">PDF personalizado em tempo real</h2>
+            <p>O sistema usa o PDF base sem nome, escreve o convidado apenas na area AGENTE N&ordm; e gera um novo PDF preservando o design original.</p>
+
+            <form class="pdf-name-form" data-pdf-name-form>
+                <label for="pdf-guest-name">Nome do convidado</label>
+                <div class="pdf-name-row">
+                    <input id="pdf-guest-name" name="nome" type="text" autocomplete="name" placeholder="Ex.: Natasha" required>
+                    <button class="pdf-button" type="submit">Gerar Preview</button>
+                </div>
+            </form>
+
+            <div class="pdf-preview-shell" data-pdf-preview-shell>
+                <img class="pdf-preview-image" src="../assets/convite-base-preview.png" alt="Preview do convite base" width="750" height="1050" decoding="async">
+                <span class="pdf-preview-agent-mask" aria-hidden="true"></span>
+                <span class="pdf-preview-name" data-pdf-preview-name aria-hidden="true"></span>
+            </div>
+            <div class="pdf-preview-status" data-pdf-status>Preparando PDF personalizado...</div>
+
+            <div class="invite-actions">
+                <a class="pdf-download is-disabled" href="#" data-download-invite aria-disabled="true">Baixar Convite</a>
+                <a class="pdf-base-link" href="../assets/convite-base.pdf" target="_blank" rel="noopener">Ver PDF base</a>
+            </div>
+
+            <p class="artistic-note">Tudo isso foi apenas uma experi&ecirc;ncia art&iacute;stica/interativa para surpreender os convidados.</p>
+        </section>
     </main>
     <footer>
-        <p>Desenvolvido por <a href="https://github.com/Joao-Mukoma-Dona-Pedro" target="_blank" rel="noopener noreferrer">João Pedro</a></p>
+        <p>Desenvolvido por <a href="https://github.com/Joao-Mukoma-Dona-Pedro" target="_blank" rel="noopener noreferrer">Jo&atilde;o Pedro</a></p>
     </footer>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js" defer></script>
     <script src="../js/seo.js" defer></script>
+    <script src="../js/cosmic-experience.js" defer></script>
+    <script src="../js/dynamic-invite-pdf.js" defer></script>
 </body>
 </html>
