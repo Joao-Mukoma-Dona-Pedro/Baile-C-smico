@@ -1,0 +1,159 @@
+html.cosmic-gate-pending body {
+    overflow: hidden;
+}
+
+html.cosmic-gate-pending body > :not(.cosmic-gate) {
+    visibility: hidden;
+}
+
+.cosmic-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(123, 246, 255, 0.08), transparent 35%),
+        radial-gradient(circle at 80% 0%, rgba(255, 120, 214, 0.06), transparent 32%),
+        #02030a;
+    color: #b8f7c8;
+    font-family: "Courier New", Courier, monospace;
+    transition: opacity 520ms ease, visibility 520ms ease;
+}
+
+.cosmic-gate.is-leaving {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.cosmic-gate__particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.cosmic-gate__particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: rgba(123, 246, 255, 0.55);
+    animation: cosmicParticleDrift linear infinite;
+}
+
+.cosmic-gate__panel {
+    position: relative;
+    width: min(720px, 100%);
+    border: 1px solid rgba(123, 246, 255, 0.28);
+    border-radius: 10px;
+    background: rgba(4, 8, 22, 0.92);
+    box-shadow: 0 0 40px rgba(123, 246, 255, 0.08), inset 0 0 60px rgba(0, 0, 0, 0.45);
+    padding: clamp(18px, 4vw, 28px);
+    backdrop-filter: blur(10px);
+}
+
+.cosmic-gate__title {
+    margin: 0 0 14px;
+    font-size: clamp(0.95rem, 2.4vw, 1.1rem);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #7bf6ff;
+}
+
+.cosmic-gate__title.is-glitch {
+    animation: cosmicGlitch 420ms steps(2, end) 2;
+}
+
+.cosmic-gate__log {
+    min-height: 180px;
+    margin: 0;
+    padding: 14px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(123, 246, 255, 0.14);
+    font-size: clamp(0.82rem, 2.2vw, 0.95rem);
+    line-height: 1.55;
+    white-space: pre-wrap;
+    overflow-y: auto;
+    max-height: 42vh;
+}
+
+.cosmic-gate__form {
+    display: grid;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.cosmic-gate__form label {
+    color: #9fd6ff;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.cosmic-gate__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+}
+
+.cosmic-gate__row input {
+    min-height: 44px;
+    border: 1px solid rgba(123, 246, 255, 0.3);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #eafff0;
+    padding: 0 12px;
+    outline: none;
+}
+
+.cosmic-gate__row input:focus {
+    border-color: rgba(123, 246, 255, 0.75);
+    box-shadow: 0 0 0 2px rgba(123, 246, 255, 0.15);
+}
+
+.cosmic-gate__row button {
+    min-height: 44px;
+    border: 0;
+    border-radius: 6px;
+    padding: 0 16px;
+    background: linear-gradient(135deg, #7bf6ff, #ff78d6);
+    color: #050714;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.cosmic-gate__hint {
+    margin: 10px 0 0;
+    color: rgba(184, 247, 200, 0.72);
+    font-size: 0.78rem;
+}
+
+@keyframes cosmicGlitch {
+    0% { transform: translate(0); filter: none; }
+    20% { transform: translate(-2px, 1px); filter: hue-rotate(25deg); }
+    40% { transform: translate(2px, -1px); }
+    60% { transform: translate(-1px, 2px); text-shadow: 2px 0 #ff78d6, -2px 0 #7bf6ff; }
+    100% { transform: translate(0); filter: none; }
+}
+
+@keyframes cosmicParticleDrift {
+    from { transform: translateY(110vh); opacity: 0; }
+    10% { opacity: 0.8; }
+    to { transform: translateY(-12vh); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cosmic-gate__title.is-glitch,
+    .cosmic-gate__particle {
+        animation: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .cosmic-gate__row {
+        grid-template-columns: 1fr;
+    }
+}

@@ -12,7 +12,6 @@ pages/
   depoimentos.html
   curiosidades.html
   playlist.html
-  agradecimentos.html
 assets/
   convite-base.pdf
   convite-base-preview.png
@@ -125,7 +124,8 @@ js/dynamic-invite-pdf.js
 - Ajuste automatico de fonte para nomes longos.
 - Botao elegante de voltar em todas as paginas.
 - Loading screen, transicoes suaves e visual premium/cinematografico.
-- Mensagem final clara: "Tudo isso foi apenas uma experiencia artistica/interativa para surpreender os convidados."
+- Portal hacker cinematografico na primeira visita (`js/cosmic-gate.js`).
+- Confirmacao de presenca na pagina do convite (`js/rsvp.js`).
 
 ## Teste rapido
 

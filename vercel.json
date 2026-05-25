@@ -1,6 +1,18 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/pages/agradecimentos",
+      "destination": "/pages/depoimentos",
+      "permanent": false
+    },
+    {
+      "source": "/pages/agradecimentos.html",
+      "destination": "/pages/depoimentos.html",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -13,11 +13,17 @@
     <meta property="og:title" content="Galeria | Baile Cósmico">
     <meta property="og:description" content="Fotos e memórias visuais do universo do Baile Cósmico.">
     <meta property="og:url" content="https://baile-cosmico.vercel.app/pages/galeria.html">
-    <meta property="og:image" content="https://baile-cosmico.vercel.app/imagens/Foto 1.jpeg">
+    <meta property="og:image" content="https://baile-cosmico.vercel.app/imagens/foto-header.jpeg">
     <meta name="twitter:card" content="summary_large_image">
     <title>Galeria de Fotos | Baile Cósmico</title>
     <link rel="stylesheet" href="../style/galeria.css">
     <link rel="stylesheet" href="../style/invite-pdf.css">
+    <link rel="stylesheet" href="../style/cosmic-gate.css">
+    <script>
+        if (!sessionStorage.getItem("baile_cosmico_gate_passed")) {
+            document.documentElement.classList.add("cosmic-gate-pending");
+        }
+    </script>
 </head>
 <body data-page-title="Galeria de Fotos">
     <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
@@ -86,6 +92,7 @@
     </div>
     </main>
 
+    <script src="../js/cosmic-gate.js"></script>
     <script src="../js/seo.js" defer></script>
     <script src="../js/galeria.js" defer></script>
     <script src="../js/cosmic-experience.js" defer></script>

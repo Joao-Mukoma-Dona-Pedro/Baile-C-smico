@@ -18,6 +18,12 @@
     <title>Curiosidades | Baile CÃ³smico</title>
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/invite-pdf.css">
+    <link rel="stylesheet" href="../style/cosmic-gate.css">
+    <script>
+        if (!sessionStorage.getItem("baile_cosmico_gate_passed")) {
+            document.documentElement.classList.add("cosmic-gate-pending");
+        }
+    </script>
 </head>
 <body data-page-title="Curiosidades">
     <a class="skip-link" href="#conteudo">Saltar para o conteÃºdo</a>
@@ -45,6 +51,7 @@
     <footer>
         <p>Desenvolvido por <a href="https://github.com/Joao-Mukoma-Dona-Pedro" target="_blank" rel="noopener noreferrer">JoÃ£o Pedro</a></p>
     </footer>
+    <script src="../js/cosmic-gate.js"></script>
     <script src="../js/seo.js" defer></script>
     <script src="../js/cosmic-experience.js" defer></script>
 </body>

@@ -18,6 +18,12 @@
     <title>Convite | Baile C&oacute;smico</title>
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/invite-pdf.css">
+    <link rel="stylesheet" href="../style/cosmic-gate.css">
+    <script>
+        if (!sessionStorage.getItem("baile_cosmico_gate_passed")) {
+            document.documentElement.classList.add("cosmic-gate-pending");
+        }
+    </script>
 </head>
 <body class="invite-pdf-page" data-page-title="Convite">
     <a class="skip-link" href="#conteudo">Saltar para o conte&uacute;do</a>
@@ -57,15 +63,25 @@
                 <a class="pdf-base-link" href="../assets/convite-base.pdf" target="_blank" rel="noopener">Ver PDF base</a>
             </div>
 
-            <p class="artistic-note">Tudo isso foi apenas uma experi&ecirc;ncia art&iacute;stica/interativa para surpreender os convidados.</p>
+            <section class="rsvp-panel" data-rsvp-panel aria-labelledby="rsvp-title">
+                <p class="eyebrow">protocolo de presen&ccedil;a</p>
+                <h3 id="rsvp-title">Confirmar presen&ccedil;a</h3>
+                <p class="rsvp-status" data-rsvp-status>Aguardando confirma&ccedil;&atilde;o do agente...</p>
+                <div class="rsvp-actions">
+                    <button class="pdf-button" type="button" data-rsvp-yes>Confirmo presen&ccedil;a</button>
+                    <button class="pdf-base-link" type="button" data-rsvp-no>N&atilde;o poderei comparecer</button>
+                </div>
+            </section>
         </section>
     </main>
     <footer>
         <p>Desenvolvido por <a href="https://github.com/Joao-Mukoma-Dona-Pedro" target="_blank" rel="noopener noreferrer">Jo&atilde;o Pedro</a></p>
     </footer>
+    <script src="../js/cosmic-gate.js"></script>
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js" defer></script>
     <script src="../js/seo.js" defer></script>
     <script src="../js/cosmic-experience.js" defer></script>
     <script src="../js/dynamic-invite-pdf.js" defer></script>
+    <script src="../js/rsvp.js" defer></script>
 </body>
 </html>

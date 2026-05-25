@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -36,6 +36,12 @@
         }
     </script>
     <link rel="stylesheet" href="style/invite-pdf.css">
+    <link rel="stylesheet" href="style/cosmic-gate.css">
+    <script>
+        if (!sessionStorage.getItem("baile_cosmico_gate_passed")) {
+            document.documentElement.classList.add("cosmic-gate-pending");
+        }
+    </script>
 </head>
 <body data-page-title="Baile Cósmico | Majestic Eighteen de Natasha">
     <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
@@ -56,7 +62,6 @@
         <a href="pages/depoimentos.html">Depoimentos</a>
         <a href="pages/curiosidades.html">Curiosidades</a>
         <a href="pages/playlist.html">PlayList</a>
-        <a href="pages/agradecimentos.html">Agradecimentos</a>
     </nav>
 
     <main id="conteudo">
@@ -89,6 +94,7 @@
         <p>Desenvolvido por <a href="https://github.com/Joao-Mukoma-Dona-Pedro" target="_blank" rel="noopener noreferrer">João Pedro</a></p>
     </footer>
 
+    <script src="js/cosmic-gate.js"></script>
     <script src="js/seo.js" defer></script>
     <script>
         function atualizarCountdown() {

@@ -18,6 +18,12 @@
     <title>Playlist do Baile | Baile Cósmico</title>
     <link rel="stylesheet" href="../style/playlist.css">
     <link rel="stylesheet" href="../style/invite-pdf.css">
+    <link rel="stylesheet" href="../style/cosmic-gate.css">
+    <script>
+        if (!sessionStorage.getItem("baile_cosmico_gate_passed")) {
+            document.documentElement.classList.add("cosmic-gate-pending");
+        }
+    </script>
 </head>
 <body data-page-title="Playlist do Baile">
     <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
@@ -83,6 +89,7 @@
         </section>
     </main>
 
+    <script src="../js/cosmic-gate.js"></script>
     <script src="../js/seo.js" defer></script>
     <script src="../js/playlist.js" defer></script>
     <script src="../js/cosmic-experience.js" defer></script>
