@@ -1,84 +1,4 @@
-:root {
-    --invite-bg: #050714;
-    --invite-panel: rgba(9, 12, 34, 0.84);
-    --invite-line: rgba(156, 165, 217, 0.28);
-    --invite-text: #f7f4ff;
-    --invite-muted: #c7cdf0;
-    --invite-neon: #7bf6ff;
-    --invite-pink: #ff78d6;
-    --invite-gold: #f3d58a;
-}
-
-body {
-    transition: opacity 360ms ease, transform 360ms ease, filter 360ms ease;
-}
-
-body.cosmic-leaving {
-    opacity: 0;
-    transform: scale(0.992);
-    filter: blur(8px);
-}
-
-.cosmic-loader {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: grid;
-    place-items: center;
-    align-content: center;
-    gap: 14px;
-    background: #02030a;
-    color: var(--invite-muted);
-    transition: opacity 420ms ease, visibility 420ms ease;
-}
-
-.cosmic-loader.is-hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.cosmic-loader span {
-    width: 54px;
-    height: 54px;
-    border-radius: 50%;
-    border: 2px solid rgba(123, 246, 255, 0.18);
-    border-top-color: var(--invite-neon);
-    animation: inviteSpin 860ms linear infinite;
-}
-
-.cosmic-loader p {
-    margin: 0;
-    font-weight: 900;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-}
-
-.cosmic-back {
-    position: fixed;
-    top: 16px;
-    left: 16px;
-    z-index: 1000;
-    min-height: 42px;
-    padding: 0 14px;
-    border: 1px solid var(--invite-line);
-    border-radius: 999px;
-    background: rgba(5, 7, 20, 0.76);
-    color: var(--invite-text);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 900;
-    cursor: pointer;
-    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
-    backdrop-filter: blur(14px);
-    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-}
-
-.cosmic-back:hover {
-    transform: translateY(-2px);
-    border-color: rgba(123, 246, 255, 0.72);
-    box-shadow: 0 18px 44px rgba(123, 246, 255, 0.16);
-}
+@import url("tokens.css");
 
 .invite-pdf-page {
     background:
@@ -247,6 +167,17 @@ body.cosmic-leaving {
     color: var(--invite-muted);
 }
 
+.rsvp-status.is-error {
+    border: 1px solid rgba(255, 120, 214, 0.4);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: #ffd9f4;
+}
+
+.rsvp-fallback {
+    display: none;
+}
+
 .rsvp-actions {
     display: flex;
     justify-content: center;
@@ -260,17 +191,7 @@ body.cosmic-leaving {
     pointer-events: none;
 }
 
-@keyframes inviteSpin { to { transform: rotate(360deg); } }
-
 @media (max-width: 640px) {
-    .cosmic-back {
-        top: 10px;
-        left: 10px;
-        min-height: 38px;
-        padding: 0 12px;
-        font-size: 0.86rem;
-    }
-
     header {
         padding-top: 74px !important;
     }

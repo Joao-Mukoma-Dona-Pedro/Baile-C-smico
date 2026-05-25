@@ -1,41 +1,18 @@
 ﻿@charset "utf-8";
 
-@import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&family=Sriracha&family=Nunito:ital,wght@0,300..900;1,300..900&display=swap");
+@import url("tokens.css");
+@import url("shared.css");
+@import url("https://fonts.googleapis.com/css2?family=Sriracha&display=swap");
 
 :root {
-    --ink: #091849;
+    --ink: var(--bc-ink);
     --night: #070a1f;
     --mist: #eef1ff;
-    --lilac: #9ca5d9;
-    --gold: #f5d188;
+    --lilac: var(--bc-lilac);
+    --gold: var(--bc-gold);
     --glass: rgba(4, 7, 22, 0.72);
-    --font-title: "Passion One", Impact, sans-serif;
+    --font-title: var(--font-display);
     --font-poem: "Sriracha", cursive;
-    --font-body: "Nunito", Arial, sans-serif;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.skip-link {
-    position: absolute;
-    left: 12px;
-    top: -48px;
-    z-index: 1000;
-    background: #ffffff;
-    color: #091849;
-    padding: 10px 14px;
-    border-radius: 6px;
-    font-weight: 800;
-    text-decoration: none;
-    transition: top 0.2s ease;
-}
-
-.skip-link:focus {
-    top: 12px;
 }
 
 html {

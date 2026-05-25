@@ -1,98 +1,13 @@
 ﻿@charset "utf-8";
 
-@import url('https://fonts.googleapis.com/css2?family=Ephesis&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-:root {
-    --cor01: #242233;
-    --cor02: #332E5C;
-    --cor03: #372D86;
-    --cor04: #2F1DB1;
-    --cor05: #2F1DB1;
-    --cor06: #2F1DB1;
-    --branco: #ffffff;
-    --azul-neon: #0726d6;
-    --cor-da-nav: #9CA5D9;
-    --font01: "Ephesis", cursive;
-    --font02: "Nunito", Arial, sans-serif;
-    --font03: "Ephesis", cursive;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.skip-link {
-    position: absolute;
-    left: 12px;
-    top: -48px;
-    z-index: 1000;
-    background: #ffffff;
-    color: #091849;
-    padding: 10px 14px;
-    border-radius: 6px;
-    font-weight: 800;
-    text-decoration: none;
-    transition: top 0.2s ease;
-}
-
-.skip-link:focus {
-    top: 12px;
-}
+@import url("tokens.css");
+@import url("shared.css");
 
 body {
-    background-color: #0A112E;
+    background-color: var(--bc-night);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    font-family: var(--font02);
-    line-height: 1.6;
-}
-
-header {
-    background-image: url("../imagens/foto-header.jpeg");
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    min-height: 60vh;
-    text-align: center;
-    
-    padding: 40px 16px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 16px;
-}
-
-header > h1,
-header > h2,
-header > p,
-#countdown {
-    position: relative;
-    z-index: 1;
-    
-}
-
-
-
-header > h1 {
-    color: #9CA5D9;
-    font-family: var(--font03);
-    font-style: normal;
-    font-size: clamp(2.2rem, 8vw, 5rem);
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.589);
-    line-height: 1.1;
-}
-
-
-header > h2 {
-    color: #9CA5D9;
-    font-family: var(--font03);
-    font-style: normal;
-    font-size: clamp(1.8rem, 7vw, 4rem);
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.589);
-    line-height: 1.1;
 }
 
 #countdown {
@@ -129,81 +44,12 @@ header > h2 {
     margin-top: 5px;
 }
 
-@media (max-width: 768px) {
-    header {
-        min-height: 70vh;
-        padding: 32px 14px;
-    }
-
-    main {
-        width: 95%;
-        padding: 16px;
-    }
-
-    article > p {
-        font-size: 0.95rem;
-    }
-}
-
-@media (max-width: 480px) {
-    header {
-        padding: 24px 12px;
-    }
-
-    nav {
-        gap: 6px;
-    }
-
-    nav > a {
-        font-size: 0.95rem;
-        padding: 8px 10px;
-    }
-
-    #countdown {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .time-box {
-        padding: 14px 10px;
-    }
-
-    article > p {
-        font-size: 0.92rem;
-    }}
-
-
-nav {
-    background-color: #9CA5D9;
-    padding: 12px 16px;
-    box-shadow: 2px 7px 9px rgba(0, 0, 0, 0.493);
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-nav > a {
-    color: #091849;
-    font-size: 25px;
-    padding: 10px 14px;
-    border-radius: 5px;
-    font-family: var(--font02);
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-nav > a:hover {
-    background-color: #04173f;
-    color: #ffffff;
-}
-
 main {
     background-color: var(--cor-da-nav);
-     width: 90%;
+    width: 90%;
     max-width: 1200px;
-    margin: 20px auto 30px auto;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    margin: 20px auto 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 20px;
@@ -218,8 +64,8 @@ article > img {
 }
 
 article > h2 {
-    color: #091849;
-    font-family: var(--font02);
+    color: var(--bc-ink);
+    font-family: var(--font-body);
     font-size: clamp(1.6rem, 4vw, 2.6rem);
     line-height: 1.15;
     margin-bottom: 18px;
@@ -227,31 +73,24 @@ article > h2 {
 }
 
 article > p {
-    color: #091849;
-    font-size: 23px;
+    color: var(--bc-ink);
+    font-size: clamp(1rem, 2.4vw, 1.35rem);
     text-align: justify;
 }
-br {
-    width: 20px;
+
+@media (max-width: 768px) {
+    main {
+        width: 95%;
+        padding: 16px;
+    }
 }
 
-footer > p, footer a {
-    color: #091849;
-    font-family: var(--font02);
-    font-size: 20px;
-    font-weight: bold;
-    text-decoration: none;
-}
+@media (max-width: 480px) {
+    #countdown {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-footer >p > a:hover {
-    text-decoration: underline;
-}
-
-footer {
-    background-color: #9CA5D9;
-    color: #ffffff;
-    font-family: var(--font02);
-    text-align: center;
-    padding: 10px;
-    font-size: 0.9em;
+    .time-box {
+        padding: 14px 10px;
+    }
 }

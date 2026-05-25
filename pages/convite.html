@@ -18,6 +18,7 @@
     <title>Convite | Baile C&oacute;smico</title>
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/invite-pdf.css">
+    <link rel="stylesheet" href="../style/experience.css">
     <link rel="stylesheet" href="../style/cosmic-gate.css">
     <script>
         if (!sessionStorage.getItem("baile_cosmico_gate_passed")) {
@@ -68,9 +69,17 @@
                 <h3 id="rsvp-title">Confirmar presen&ccedil;a</h3>
                 <p class="rsvp-status" data-rsvp-status>Aguardando confirma&ccedil;&atilde;o do agente...</p>
                 <div class="rsvp-actions">
-                    <button class="pdf-button" type="button" data-rsvp-yes>Confirmo presen&ccedil;a</button>
+                    <button class="pdf-button" type="button" data-rsvp-yes>Confirmar presen&ccedil;a</button>
                     <button class="pdf-base-link" type="button" data-rsvp-no>N&atilde;o poderei comparecer</button>
                 </div>
+                <form class="rsvp-fallback" data-rsvp-fallback action="https://formsubmit.co/natashasarahars@gmail.com" method="POST" hidden>
+                    <input type="hidden" name="_subject" value="RSVP Baile Cósmico">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="nome" value="">
+                    <input type="hidden" name="presenca" value="">
+                    <input type="hidden" name="evento" value="Baile Cósmico — Majestic Eighteen">
+                </form>
             </section>
         </section>
     </main>
