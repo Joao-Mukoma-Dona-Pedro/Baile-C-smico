@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Ephesis&family=Nunito:ital,wght@0,300..900;1,300..900&display=swap");
+
+:root {
+    --bc-night: #0a112e;
+    --bc-ink: #091849;
+    --bc-lilac: #9ca5d9;
+    --bc-neon: #0726d6;
+    --bc-neon-soft: #7bf6ff;
+    --bc-pink: #ff78d6;
+    --bc-gold: #f3d58a;
+    --bc-white: #ffffff;
+
+    --font-display: "Papyrus", "Ephesis", "Segoe Script", "Brush Script MT", fantasy;
+    --font-body: "Nunito", Arial, sans-serif;
+
+    --invite-bg: #050714;
+    --invite-panel: rgba(9, 12, 34, 0.84);
+    --invite-line: rgba(156, 165, 217, 0.28);
+    --invite-text: #f7f4ff;
+    --invite-muted: #c7cdf0;
+    --invite-neon: var(--bc-neon-soft);
+    --invite-pink: var(--bc-pink);
+    --invite-gold: var(--bc-gold);
+
+    --cor01: #242233;
+    --cor-da-nav: var(--bc-lilac);
+    --azul-neon: var(--bc-neon);
+    --font01: var(--font-display);
+    --font02: var(--font-body);
+    --font03: var(--font-display);
+}
