@@ -2,24 +2,26 @@
 
 @import url("tokens.css");
 @import url("shared.css");
-@import url("https://fonts.googleapis.com/css2?family=Sriracha&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sriracha&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap");
 
 :root {
-    --ink: var(--bc-ink);
+    --ink: #091849;
     --night: #070a1f;
-    --mist: #eef1ff;
+    --mist: #f4f6ff;
     --lilac: var(--bc-lilac);
     --gold: var(--bc-gold);
-    --glass: rgba(4, 7, 22, 0.72);
+    --verse-light: #121f52;
+    --panel-light: rgba(255, 252, 245, 0.94);
+    --panel-cosmic: rgba(6, 10, 32, 0.88);
     --font-title: var(--font-display);
-    --font-poem: "Sriracha", cursive;
+    --font-poem: "Cormorant Garamond", "Sriracha", Georgia, serif;
 }
 
 html {
     scroll-behavior: smooth;
 }
 
-body {
+body.cordel-page {
     min-height: 100vh;
     background: var(--night);
     color: var(--mist);
@@ -31,10 +33,10 @@ a {
     color: inherit;
 }
 
-.hero {
+.cordel-hero {
     min-height: 100vh;
     background:
-        linear-gradient(180deg, rgba(7, 10, 31, 0.25), rgba(7, 10, 31, 0.92)),
+        linear-gradient(180deg, rgba(7, 10, 31, 0.35), rgba(7, 10, 31, 0.94)),
         url("../imagens/foto-header.jpeg") center / cover fixed;
     display: flex;
     flex-direction: column;
@@ -42,45 +44,44 @@ a {
     text-align: center;
 }
 
-.links {
+.cordel-hero .links {
     width: 100%;
     padding: 18px;
     display: flex;
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
-    background: rgba(8, 12, 37, 0.62);
+    background: rgba(8, 12, 37, 0.72);
     backdrop-filter: blur(12px);
 }
 
-.links a {
+.cordel-hero .links a {
     color: #f8f7ff;
     text-decoration: none;
-    font-family: var(--font-body);
     font-size: clamp(0.85rem, 2vw, 1rem);
     font-weight: 800;
     letter-spacing: 0.04em;
     padding: 9px 13px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 999px;
     transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
 }
 
-.links a:hover,
-.links a:focus-visible {
+.cordel-hero .links a:hover,
+.cordel-hero .links a:focus-visible {
     background: var(--lilac);
     color: var(--ink);
     transform: translateY(-2px);
 }
 
-.hero-content {
+.cordel-hero__content {
     width: min(900px, calc(100% - 32px));
     margin: auto;
     padding: 18vh 0 22vh;
-    text-shadow: 0 8px 28px rgba(0, 0, 0, 0.72);
+    text-shadow: 0 8px 28px rgba(0, 0, 0, 0.75);
 }
 
-.eyebrow {
+.cordel-hero .eyebrow {
     color: var(--gold);
     font-weight: 900;
     letter-spacing: 0.32em;
@@ -88,202 +89,212 @@ a {
     margin-bottom: 16px;
 }
 
-.hero h1 {
+.cordel-hero h1 {
     font-family: var(--font-title);
-    font-variant: small-caps;
-    letter-spacing: 0.02em;
-    font-size: clamp(4rem, 14vw, 10rem);
-    line-height: 0.85;
+    font-size: clamp(3rem, 12vw, 8rem);
+    line-height: 0.92;
+    color: var(--mist);
 }
 
-.hero h1 span {
+.cordel-hero h1 span {
     display: block;
 }
 
-.hero-content > p:last-child {
+.cordel-hero__intro {
     width: min(720px, 100%);
     margin: 24px auto 0;
-    font-size: clamp(1rem, 2.4vw, 1.35rem);
+    font-size: clamp(1.05rem, 2.4vw, 1.35rem);
     line-height: 1.8;
+    color: rgba(244, 246, 255, 0.92);
 }
 
-.testimonial-section {
+.cordel-stanza {
     min-height: 100vh;
-    padding: clamp(90px, 16vh, 180px) 20px;
+    padding: clamp(88px, 14vh, 160px) 20px;
     display: grid;
     place-items: center;
     position: relative;
     isolation: isolate;
+    overflow: hidden;
 }
 
-.normal {
-    background:
-        radial-gradient(circle at top left, rgba(156, 165, 217, 0.32), transparent 34%),
-        linear-gradient(135deg, #fffaf0 0%, #eef1ff 52%, #fdf8ef 100%);
-    color: var(--ink);
-}
-
-.imagem {
-    color: #ffffff;
+.cordel-stanza__bg {
+    position: absolute;
+    inset: -8% 0;
+    z-index: -2;
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
+    transform: translate3d(0, var(--parallax-y, 0), 0);
+    will-change: transform;
 }
 
-.imagem::before {
+.cordel-stanza--light .cordel-stanza__bg {
+    background:
+        radial-gradient(circle at 12% 18%, rgba(156, 165, 217, 0.35), transparent 38%),
+        radial-gradient(circle at 88% 82%, rgba(243, 213, 138, 0.22), transparent 34%),
+        linear-gradient(145deg, #fff9ef 0%, #eef1ff 48%, #fdf6ea 100%);
+}
+
+.cordel-stanza--cosmic .cordel-stanza__bg {
+    filter: saturate(1.05) brightness(0.72);
+}
+
+.cordel-stanza--cosmic::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: -1;
     background:
-        linear-gradient(180deg, rgba(4, 7, 22, 0.2), rgba(4, 7, 22, 0.66)),
-        radial-gradient(circle at center, rgba(47, 29, 177, 0.15), rgba(0, 0, 0, 0.72));
+        linear-gradient(180deg, rgba(4, 7, 22, 0.55), rgba(4, 7, 22, 0.82)),
+        radial-gradient(circle at 50% 40%, rgba(47, 29, 177, 0.2), rgba(0, 0, 0, 0.55));
 }
 
-.image-one {
+.cordel-stanza--cosmic[data-bg="one"] .cordel-stanza__bg {
     background-image: url("../imagens/Foto 14.jpeg");
 }
 
-.image-two {
+.cordel-stanza--cosmic[data-bg="two"] .cordel-stanza__bg {
     background-image: url("../imagens/H5 black sky background.jfif");
 }
 
-.image-three {
+.cordel-stanza--cosmic[data-bg="three"] .cordel-stanza__bg {
     background-image: url("../imagens/foto30.jpeg");
 }
 
-.image-four {
+.cordel-stanza--cosmic[data-bg="four"] .cordel-stanza__bg {
     background-image: url("../imagens/foto29.jpeg");
 }
 
-.image-five {
+.cordel-stanza--cosmic[data-bg="five"] .cordel-stanza__bg {
     background-image: url("../imagens/Foto 15.jpeg");
 }
 
-.image-six {
+.cordel-stanza--cosmic[data-bg="six"] .cordel-stanza__bg {
     background-image: url("../imagens/foto31.jpeg");
 }
 
-.cordel-card {
-    width: min(790px, 100%);
+.cordel-panel {
+    width: min(820px, 100%);
     text-align: center;
-    padding: clamp(28px, 6vw, 64px);
+    padding: clamp(32px, 5vw, 56px) clamp(22px, 4vw, 40px);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+    backdrop-filter: blur(10px);
 }
 
-.imagem .cordel-card {
-    background: var(--glass);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(5px);
+.cordel-stanza--light .cordel-panel {
+    background: var(--panel-light);
+    border-color: rgba(9, 24, 73, 0.12);
+    box-shadow: 0 24px 60px rgba(9, 24, 73, 0.18);
 }
 
-.number {
+.cordel-stanza--cosmic .cordel-panel {
+    background: var(--panel-cosmic);
+    border-color: rgba(123, 246, 255, 0.22);
+}
+
+.cordel-number {
     color: var(--gold);
     font-family: var(--font-body);
-    font-size: clamp(0.82rem, 2vw, 1rem);
-    font-weight: 1000;
-    letter-spacing: 0.45em;
-    margin-bottom: 18px;
+    font-size: clamp(0.78rem, 1.8vw, 0.95rem);
+    font-weight: 900;
+    letter-spacing: 0.42em;
+    margin-bottom: 20px;
 }
 
-.normal .number {
+.cordel-stanza--light .cordel-number {
     color: #7b5b16;
 }
 
-.question {
+.cordel-question {
     font-family: var(--font-title);
-    font-variant: small-caps;
-    font-size: clamp(2.4rem, 7vw, 5.8rem);
-    line-height: 0.95;
-    margin-bottom: clamp(28px, 5vh, 52px);
+    font-size: clamp(1.85rem, 5.5vw, 3.6rem);
+    line-height: 1.12;
+    margin-bottom: clamp(20px, 4vh, 36px);
+    text-wrap: balance;
 }
 
-.normal .question {
-    color: #18265d;
+.cordel-stanza--light .cordel-question {
+    color: var(--ink);
+    text-shadow: 0 2px 12px rgba(255, 255, 255, 0.6);
 }
 
-.imagem .question {
-    color: #f7dd9c;
-    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.72);
+.cordel-stanza--cosmic .cordel-question {
+    color: #f7e6b8;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.85), 0 0 18px rgba(123, 246, 255, 0.15);
 }
 
-.cordel-card h2 {
+.cordel-author {
     display: inline-block;
-    color: var(--gold);
-    background: #091849;
+    margin-bottom: clamp(22px, 4vh, 38px);
+    padding: 10px 20px;
+    border-radius: 999px;
     font-family: var(--font-body);
-    font-size: clamp(1rem, 2.8vw, 1.35rem);
+    font-size: clamp(0.82rem, 2vw, 1rem);
     font-weight: 900;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    padding: 10px 18px;
-    margin-bottom: clamp(24px, 4vh, 42px);
 }
 
-.imagem .cordel-card h2 {
+.cordel-stanza--light .cordel-author {
+    color: var(--mist);
+    background: var(--ink);
+}
+
+.cordel-stanza--cosmic .cordel-author {
     color: var(--ink);
     background: var(--gold);
 }
 
-.answer {
+.cordel-verse {
     font-family: var(--font-poem);
-    font-size: clamp(1.55rem, 4vw, 3rem);
-    line-height: 1.85;
+    font-size: clamp(1.35rem, 3.2vw, 2.15rem);
+    line-height: 1.75;
+    font-weight: 500;
     text-wrap: balance;
 }
 
-.normal .answer {
-    color: #16214f;
+.cordel-stanza--light .cordel-verse {
+    color: var(--verse-light);
 }
 
-.imagem .answer {
-    text-shadow: 0 3px 18px rgba(0, 0, 0, 0.78);
+.cordel-stanza--cosmic .cordel-verse {
+    color: #f8f5ff;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.75);
 }
 
-.dense .cordel-card {
-    width: min(920px, 100%);
+.cordel-stanza.is-dense .cordel-question {
+    font-size: clamp(1.65rem, 4.8vw, 3rem);
 }
 
-.dense .question {
-    font-size: clamp(2.1rem, 5.8vw, 4.8rem);
-}
-
-.dense .answer {
-    font-size: clamp(1.25rem, 3vw, 2.25rem);
+.cordel-stanza.is-dense .cordel-verse {
+    font-size: clamp(1.15rem, 2.6vw, 1.75rem);
     line-height: 1.68;
 }
 
-.epic {
-    min-height: auto;
-    padding-top: clamp(90px, 13vh, 150px);
-    padding-bottom: clamp(90px, 13vh, 150px);
+.cordel-stanza.is-epic .cordel-panel {
+    width: min(920px, 100%);
 }
 
-.epic .cordel-card {
-    width: min(980px, 100%);
-}
-
-.epic .question {
-    font-size: clamp(2rem, 5vw, 4.4rem);
-}
-
-.epic .answer {
-    font-size: clamp(1.12rem, 2.3vw, 1.85rem);
+.cordel-stanza.is-epic .cordel-verse {
+    font-size: clamp(1.05rem, 2.2vw, 1.55rem);
     line-height: 1.62;
 }
 
 .reveal {
     opacity: 0;
-    transform: translateY(44px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
+    transform: translateY(36px);
+    transition: opacity 0.85s ease, transform 0.85s ease;
 }
 
-.reveal.visible {
+.reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-footer {
+.cordel-page footer {
     background: var(--lilac);
     color: var(--ink);
     text-align: center;
@@ -291,72 +302,43 @@ footer {
     font-weight: 800;
 }
 
-footer a {
+.cordel-page footer a {
     text-decoration: none;
 }
 
-footer a:hover,
-footer a:focus-visible {
+.cordel-page footer a:hover,
+.cordel-page footer a:focus-visible {
     text-decoration: underline;
 }
 
 @media (max-width: 760px) {
-    .hero,
-    .imagem {
+    .cordel-stanza__bg,
+    .cordel-hero {
         background-attachment: scroll;
     }
 
-    .links {
+    .cordel-hero .links {
         justify-content: flex-start;
         overflow-x: auto;
         flex-wrap: nowrap;
         scrollbar-width: none;
     }
 
-    .links::-webkit-scrollbar {
+    .cordel-hero .links::-webkit-scrollbar {
         display: none;
     }
 
-    .links a {
+    .cordel-hero .links a {
         flex: 0 0 auto;
     }
 
-    .hero-content {
-        width: 100%;
-        max-width: 360px;
-        padding: 12vh 16px 18vh;
+    .cordel-stanza {
+        min-height: auto;
+        padding: 80px 16px;
     }
 
-    .hero h1 {
-        font-size: clamp(2.55rem, 12vw, 3.25rem);
-        line-height: 0.98;
-    }
-
-    .hero-content > p:last-child {
-        font-size: 1rem;
-        line-height: 1.7;
-    }
-
-    .testimonial-section {
-        min-height: 92vh;
-        padding: 88px 16px;
-    }
-
-    .cordel-card {
+    .cordel-panel {
         padding: 28px 18px;
-    }
-
-    .imagem .cordel-card {
-        width: min(100%, 560px);
-    }
-
-    .answer {
-        line-height: 1.75;
-    }
-
-    .dense .answer,
-    .epic .answer {
-        line-height: 1.62;
     }
 }
 
@@ -365,8 +347,12 @@ footer a:focus-visible {
         scroll-behavior: auto;
     }
 
-    .links a,
-    .reveal {
+    .cordel-stanza__bg {
+        transform: none !important;
+    }
+
+    .reveal,
+    .cordel-hero .links a {
         transition: none;
     }
 }

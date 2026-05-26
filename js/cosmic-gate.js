@@ -47,10 +47,10 @@
         <form class="cosmic-gate__form" data-gate-form>
             <label for="cosmic-gate-name">Identificação do agente</label>
             <div class="cosmic-gate__row">
-                <input id="cosmic-gate-name" name="nome" type="text" autocomplete="name" placeholder="Digite o seu nome" required>
+                <input id="cosmic-gate-name" name="nome" type="text" autocomplete="name" placeholder="Escreve o teu nome" required>
                 <button type="submit">Autorizar</button>
             </div>
-            <p class="cosmic-gate__hint">Pressione Enter para continuar. O convite personalizado ficará disponível na aba Convite.</p>
+            <p class="cosmic-gate__hint">Prima Enter para continuar. O convite personalizado ficará disponível na aba Convite.</p>
         </form>
     `;
     gate.appendChild(panel);

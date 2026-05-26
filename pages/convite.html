@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Convite oficial do Baile C&oacute;smico com gera&ccedil;&atilde;o din&acirc;mica de PDF personalizado.">
+    <meta name="description" content="Convite oficial do Baile Cósmico com geração dinâmica de PDF personalizado.">
     <meta name="theme-color" content="#070a1f">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://baile-cosmico.vercel.app/pages/convite.html">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Baile C&oacute;smico">
-    <meta property="og:title" content="Convite | Baile C&oacute;smico">
-    <meta property="og:description" content="Gere o convite personalizado do Majestic Eighteen de Natasha.">
+    <meta property="og:site_name" content="Baile Cósmico">
+    <meta property="og:title" content="Convite | Baile Cósmico">
+    <meta property="og:description" content="Gera o convite personalizado do Majestic Eighteen de Natasha.">
     <meta property="og:url" content="https://baile-cosmico.vercel.app/pages/convite.html">
     <meta property="og:image" content="https://baile-cosmico.vercel.app/imagens/foto-header.jpeg">
     <meta name="twitter:card" content="summary_large_image">
-    <title>Convite | Baile C&oacute;smico</title>
+    <title>Convite | Baile Cósmico</title>
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/invite-pdf.css">
     <link rel="stylesheet" href="../style/experience.css">
@@ -27,50 +27,51 @@
     </script>
 </head>
 <body class="invite-pdf-page" data-page-title="Convite">
-    <a class="skip-link" href="#conteudo">Saltar para o conte&uacute;do</a>
+    <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
     <header role="banner">
         <h1>Convite</h1>
-        <h2>Baile C&oacute;smico</h2>
+        <h2>Baile Cósmico</h2>
     </header>
-    <nav class="links" aria-label="Navega&ccedil;&atilde;o principal">
-        <a href="../index.html">In&iacute;cio</a>
+    <nav class="links" aria-label="Navegação principal">
+        <a href="../index.html">Início</a>
         <a href="galeria.html">Galeria</a>
         <a href="depoimentos.html">Depoimentos</a>
-        <a href="playlist.html">PlayList</a>
+        <a href="curiosidades.html">Curiosidades</a>
+        <a href="playlist.html">Playlist</a>
     </nav>
     <main id="conteudo">
         <section class="dynamic-invite" aria-labelledby="convite-dinamico-title">
             <p class="eyebrow">convite oficial</p>
             <h2 id="convite-dinamico-title">PDF personalizado em tempo real</h2>
-            <p>O sistema usa o PDF base sem nome, escreve o convidado apenas na area AGENTE N&ordm; e gera um novo PDF preservando o design original.</p>
+            <p>O protocolo abre o PDF base sem nome, inscreve o convidado apenas na área AGENTE N.º e gera um novo ficheiro preservando o design original.</p>
 
             <form class="pdf-name-form" data-pdf-name-form>
                 <label for="pdf-guest-name">Nome do convidado</label>
                 <div class="pdf-name-row">
                     <input id="pdf-guest-name" name="nome" type="text" autocomplete="name" placeholder="Ex.: Natasha" required>
-                    <button class="pdf-button" type="submit">Gerar Preview</button>
+                    <button class="pdf-button" type="submit">Gerar pré-visualização</button>
                 </div>
             </form>
 
             <div class="pdf-preview-shell" data-pdf-preview-shell>
-                <img class="pdf-preview-image" src="../assets/convite-base-preview.png" alt="Preview do convite base" width="750" height="1050" decoding="async">
+                <img class="pdf-preview-image" src="../assets/convite-base-preview.png" alt="Pré-visualização do convite base" width="750" height="1050" decoding="async">
                 <span class="pdf-preview-agent-mask" aria-hidden="true"></span>
                 <span class="pdf-preview-name" data-pdf-preview-name aria-hidden="true"></span>
             </div>
-            <div class="pdf-preview-status" data-pdf-status>Preparando PDF personalizado...</div>
+            <div class="pdf-preview-status" data-pdf-status>A preparar o PDF personalizado...</div>
 
             <div class="invite-actions">
-                <a class="pdf-download is-disabled" href="#" data-download-invite aria-disabled="true">Baixar Convite</a>
+                <a class="pdf-download is-disabled" href="#" data-download-invite aria-disabled="true">Descarregar convite</a>
                 <a class="pdf-base-link" href="../assets/convite-base.pdf" target="_blank" rel="noopener">Ver PDF base</a>
             </div>
 
             <section class="rsvp-panel" data-rsvp-panel aria-labelledby="rsvp-title">
-                <p class="eyebrow">protocolo de presen&ccedil;a</p>
-                <h3 id="rsvp-title">Confirmar presen&ccedil;a</h3>
-                <p class="rsvp-status" data-rsvp-status>Aguardando confirma&ccedil;&atilde;o do agente...</p>
+                <p class="eyebrow">protocolo de presença</p>
+                <h3 id="rsvp-title">Confirmar presença</h3>
+                <p class="rsvp-status" data-rsvp-status>A aguardar confirmação do agente...</p>
                 <div class="rsvp-actions">
-                    <button class="pdf-button" type="button" data-rsvp-yes>Confirmar presen&ccedil;a</button>
-                    <button class="pdf-base-link" type="button" data-rsvp-no>N&atilde;o poderei comparecer</button>
+                    <button class="pdf-button" type="button" data-rsvp-yes>Confirmar presença</button>
+                    <button class="pdf-base-link" type="button" data-rsvp-no>Não poderei comparecer</button>
                 </div>
                 <form class="rsvp-fallback" data-rsvp-fallback action="https://formsubmit.co/natashasarahars@gmail.com" method="POST" hidden>
                     <input type="hidden" name="_subject" value="RSVP Baile Cósmico">
@@ -84,7 +85,7 @@
         </section>
     </main>
     <footer>
-        <p>Desenvolvido por <a href="https://github.com/Joao-Mukoma-Dona-Pedro" target="_blank" rel="noopener noreferrer">Jo&atilde;o Pedro</a></p>
+        <p>Desenvolvido por <a href="https://github.com/Joao-Mukoma-Dona-Pedro" target="_blank" rel="noopener noreferrer">João Pedro</a></p>
     </footer>
     <script src="../js/cosmic-gate.js"></script>
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js" defer></script>

@@ -36,7 +36,7 @@
     function injectLoader() {
         const loader = document.createElement("div");
         loader.className = "cosmic-loader";
-        loader.innerHTML = "<span></span><p>Sincronizando convite...</p>";
+        loader.innerHTML = "<span></span><p>A sincronizar o convite...</p>";
         document.body.appendChild(loader);
         setTimeout(() => loader.classList.add("is-hidden"), 520);
     }

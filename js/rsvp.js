@@ -47,7 +47,7 @@
             return;
         }
         if (saved === "yes") {
-            status.textContent = `Presença confirmada, ${name}. O protocolo registrou a sua entrada e enviou a confirmação.`;
+            status.textContent = `Presença confirmada, ${name}. O protocolo registou a sua entrada e enviou a confirmação.`;
         } else {
             status.textContent = `Registo recebido, ${name}. A sua resposta foi enviada com discrição.`;
         }
@@ -107,7 +107,7 @@
 
         setBusy(true);
         status.classList.remove("is-error");
-        status.textContent = "A enviar confirmação para o protocolo...";
+        status.textContent = "A enviar a confirmação para o protocolo...";
 
         try {
             await sendEmail(choice, name);

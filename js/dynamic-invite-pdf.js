@@ -102,10 +102,10 @@
     }
 
     async function generateInvitePdf(name) {
-        if (!window.PDFLib) throw new Error("pdf-lib nao carregou. Confirme o CDN ou instale localmente.");
+        if (!window.PDFLib) throw new Error("O pdf-lib não carregou. Confirma a ligação ou recarrega a página.");
         const { PDFDocument, rgb } = PDFLib;
         const response = await fetch(INVITE_CONFIG.basePdfUrl, { cache: "no-store" });
-        if (!response.ok) throw new Error("PDF base nao encontrado em assets/convite-base.pdf.");
+        if (!response.ok) throw new Error("PDF base não encontrado em assets/convite-base.pdf.");
 
         const pdfDoc = await PDFDocument.load(await response.arrayBuffer());
         const page = pdfDoc.getPages()[INVITE_CONFIG.pageIndex] || pdfDoc.getPages()[0];
@@ -142,13 +142,13 @@
     async function updatePreview(name, { autoDownload = false } = {}) {
         const finalName = normalizeName(name);
         if (!finalName) {
-            setStatus("Digite um nome para gerar o convite personalizado.", true);
+            setStatus("Escreve um nome para gerar o convite personalizado.", true);
             setDownloadEnabled(false);
             return;
         }
 
         try {
-            setStatus("Gerando PDF personalizado em alta qualidade...");
+            setStatus("A gerar o PDF personalizado em alta qualidade...");
             setDownloadEnabled(false);
             localStorage.setItem(STORAGE_KEY, finalName);
 
@@ -160,11 +160,11 @@
             download.href = currentBlobUrl;
             download.download = `${INVITE_CONFIG.filePrefix}-${slugify(finalName)}.pdf`;
             setDownloadEnabled(true);
-            setStatus(`Preview pronto para ${finalName}. Nome aplicado apenas na area AGENTE No.`);
+            setStatus(`Pré-visualização pronta para ${finalName}. Nome aplicado apenas na área AGENTE N.º.`);
             if (autoDownload) download.click();
         } catch (error) {
             console.error(error);
-            setStatus(error.message || "Nao foi possivel gerar o PDF personalizado.", true);
+            setStatus(error.message || "Não foi possível gerar o PDF personalizado.", true);
             setDownloadEnabled(false);
         }
     }
@@ -183,7 +183,7 @@
         input.value = name;
         updatePreview(name);
     } else {
-        setStatus("Digite o nome do convidado para gerar o preview.");
+        setStatus("Escreve o nome do convidado para gerar a pré-visualização.");
         input.focus();
     }
 
