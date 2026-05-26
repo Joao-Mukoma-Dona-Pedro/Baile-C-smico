@@ -4,7 +4,6 @@
     const EXPORT_MAX_EDGE = 2400;
 
     const INVITE_CONFIG = {
-        basePdfUrl: "../assets/convite-base.pdf",
         pageIndex: 0,
         filePrefix: "convite-baile-cosmico"
     };
@@ -172,17 +171,12 @@
         });
     }
 
-    async function getBasePageSize() {
-        if (!window.PDFLib) return { width: 360, height: 504 };
-        try {
-            const response = await fetch(INVITE_CONFIG.basePdfUrl, { cache: "force-cache" });
-            if (!response.ok) return { width: 360, height: 504 };
-            const pdfDoc = await PDFLib.PDFDocument.load(await response.arrayBuffer());
-            const page = pdfDoc.getPages()[INVITE_CONFIG.pageIndex] || pdfDoc.getPages()[0];
-            return { width: page.getWidth(), height: page.getHeight() };
-        } catch {
-            return { width: 360, height: 504 };
-        }
+    function getPageSizeFromPreview(canvas) {
+        const iw = previewImage.naturalWidth || canvas.width || 914;
+        const ih = previewImage.naturalHeight || canvas.height || 1280;
+        const width = 595.28; // A4 width in pt (approx). Keeps print-friendly sizing.
+        const height = width * (ih / iw);
+        return { width, height };
     }
 
     /** PDF = página com a imagem rasterizada do preview (réplica visual). */
@@ -193,7 +187,7 @@
         const canvas = await renderPreviewCanvas(finalText);
         const pngBytes = await canvasToPngBytes(canvas);
         const { PDFDocument } = PDFLib;
-        const { width, height } = await getBasePageSize();
+        const { width, height } = getPageSizeFromPreview(canvas);
 
         const pdfDoc = await PDFDocument.create();
         const page = pdfDoc.addPage([width, height]);

@@ -13,7 +13,7 @@
     <meta property="og:title" content="Convite | Baile Cósmico">
     <meta property="og:description" content="Gera o convite personalizado do Majestic Eighteen de Natasha.">
     <meta property="og:url" content="https://baile-cosmico.vercel.app/pages/convite.html">
-    <meta property="og:image" content="https://baile-cosmico.vercel.app/imagens/foto-header.jpeg">
+    <meta property="og:image" content="https://baile-cosmico.vercel.app/assets/imagem_do_convite_baile_cosmico.jpeg">
     <meta name="twitter:card" content="summary_large_image">
     <title>Convite | Baile Cósmico</title>
     <link rel="stylesheet" href="../style/style.css">
@@ -41,7 +41,7 @@
     </nav>
     <main id="conteudo">
         <section class="dynamic-invite" aria-labelledby="convite-dinamico-title">
-            <p>O protocolo abre o PDF base sem nome, inscreve o convidado apenas na área Assinatura do Agente e gera um novo ficheiro preservando o design original.</p>
+            <p>O protocolo prepara um convite personalizado em tempo real, com o nome do convidado integrado no convite oficial.</p>
 
             <form class="pdf-name-form" data-pdf-name-form>
                 <label for="pdf-guest-name">Nome do convidado</label>
@@ -52,7 +52,7 @@
             </form>
 
             <div class="pdf-preview-shell" data-pdf-preview-shell>
-                <img class="pdf-preview-image" src="../assets/convite-base-preview.png" alt="Pré-visualização do convite base" width="750" height="1050" decoding="async">
+                <img class="pdf-preview-image" src="../assets/imagem_do_convite_baile_cosmico.jpeg" alt="Pré-visualização do convite oficial" width="914" height="1280" decoding="async" fetchpriority="high">
                 <span class="pdf-preview-agent-mask" aria-hidden="true"></span>
                 <span class="pdf-preview-name" data-pdf-preview-name aria-hidden="true"></span>
             </div>
@@ -60,7 +60,6 @@
 
             <div class="invite-actions">
                 <a class="pdf-download is-disabled" href="#" data-download-invite aria-disabled="true">Descarregar convite</a>
-                <a class="pdf-base-link" href="../assets/convite-base.pdf" target="_blank" rel="noopener">Ver PDF base</a>
             </div>
 
             <section class="rsvp-panel" data-rsvp-panel aria-labelledby="rsvp-title">
