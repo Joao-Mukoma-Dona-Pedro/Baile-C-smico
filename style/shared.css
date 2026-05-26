@@ -31,7 +31,10 @@ body {
 
 header[role="banner"] > h1,
 header[role="banner"] > h2,
-.gallery-header > h1,
+header.gallery-hero > h1,
+header.playlist-hero > h1,
+.cordel-hero h1,
+.cordel-hero h1 span,
 .playlist-hero h1,
 .hero h1,
 .hero h1 span,
@@ -84,9 +87,7 @@ header[role="banner"] > h2 {
     font-size: clamp(1.6rem, 6vw, 3.2rem);
 }
 
-nav.links,
-.gallery-nav,
-.playlist-nav {
+nav.links {
     background-color: var(--bc-lilac);
     padding: 12px 16px;
     box-shadow: 2px 7px 9px rgba(0, 0, 0, 0.35);
@@ -94,29 +95,60 @@ nav.links,
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
+    position: relative;
+    z-index: 2;
 }
 
-nav.links > a,
-.gallery-nav a,
-.playlist-nav a {
+nav.links > a {
     color: var(--bc-ink);
-    font-size: clamp(0.9rem, 2.4vw, 1.1rem);
+    font-size: clamp(0.9rem, 2.4vw, 1.25rem);
     padding: 10px 14px;
     border-radius: 5px;
     font-family: var(--font-body);
     text-decoration: none;
     font-weight: bold;
-    transition: background-color 0.25s ease, color 0.25s ease;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
 }
 
 nav.links > a:hover,
-nav.links > a:focus-visible,
-.gallery-nav a:hover,
-.gallery-nav a:focus-visible,
-.playlist-nav a:hover,
-.playlist-nav a:focus-visible {
+nav.links > a:focus-visible {
     background-color: var(--bc-ink);
     color: var(--bc-white);
+    transform: translateY(-1px);
+}
+
+/* Capas de subpáginas — mesma hierarquia que a home */
+header.gallery-hero,
+header.playlist-hero,
+header.cordel-hero {
+    background-image: url("../imagens/foto-header.jpeg");
+    background-size: cover;
+    background-position: center;
+}
+
+header.gallery-hero > h1,
+header.gallery-hero > .gallery-hero__copy,
+header.playlist-hero > .playlist-eyebrow,
+header.playlist-hero > h1,
+header.playlist-hero > .playlist-copy,
+.cordel-hero .cordel-hero__content {
+    position: relative;
+    z-index: 1;
+}
+
+header.gallery-hero > h1,
+header.playlist-hero > h1 {
+    color: var(--bc-lilac);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.55), 0 0 24px rgba(123, 246, 255, 0.12);
+}
+
+header.gallery-hero > .gallery-hero__copy,
+header.playlist-hero > .playlist-copy {
+    color: rgba(244, 246, 255, 0.9);
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: clamp(1rem, 2.4vw, 1.25rem);
 }
 
 footer {
@@ -151,9 +183,12 @@ footer > p > a:hover {
         padding: 24px 12px;
     }
 
-    nav.links,
-    .gallery-nav,
-    .playlist-nav {
+    nav.links {
         gap: 6px;
+    }
+
+    nav.links > a {
+        font-size: 0.95rem;
+        padding: 8px 10px;
     }
 }

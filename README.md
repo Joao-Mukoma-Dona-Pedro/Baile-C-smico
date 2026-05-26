@@ -59,44 +59,11 @@ O nome e aplicado apenas no canto inferior esquerdo, abaixo da impressao digital
 (INSIRA O SEU NUMERO DE AGENTE)
 ```
 
-```text
-PDF: 360 x 504 pt
-Centro do nome: x = 93 pt
-Linha base do nome: y = 27 pt
-Largura maxima: 92 pt
-Mascara do placeholder: x = 56 pt, y = 19 pt, width = 80 pt, height = 21 pt
-```
+### Posicao do nome no preview
 
-## Onde configurar posicao, fonte e tamanho do nome
+Ajuste apenas em `style/invite-pdf.css` (classes `.pdf-preview-name` e `.pdf-preview-agent-mask`).
 
-Abra `js/dynamic-invite-pdf.js` e ajuste o bloco `INVITE_CONFIG.agentName`:
-
-```js
-agentName: {
-  x: 93,
-  y: 27,
-  maxWidth: 92,
-  fontSize: 7.8,
-  minFontSize: 5.2,
-  font: "CourierBold",
-  color: { r: 0.91, g: 0.74, b: 0.43 },
-  uppercase: true,
-  letterSpacing: 0.35,
-  coverPlaceholder: {
-    x: 56,
-    y: 19,
-    width: 80,
-    height: 21
-  }
-}
-```
-
-- `x`: centro horizontal do nome na area `AGENTE No.`.
-- `y`: linha base vertical do nome.
-- `maxWidth`: largura maxima antes de reduzir a fonte automaticamente.
-- `fontSize`: tamanho inicial do nome.
-- `minFontSize`: menor tamanho permitido para nomes longos.
-- `coverPlaceholder`: mascara escura aplicada so sobre o texto antigo.
+O PDF descarregado e gerado por rasterizacao do preview: o script mede a posicao real no ecran (`getBoundingClientRect`) e exporta via canvas — nao recalcula texto no PDF.
 - `color`: cor RGB normalizada de `0` a `1`.
 - `font`: fonte padrao do `pdf-lib`.
 

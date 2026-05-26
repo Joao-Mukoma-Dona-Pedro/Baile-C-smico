@@ -25,19 +25,20 @@
         }
     </script>
 </head>
-<body data-page-title="Galeria de Fotos">
+<body class="gallery-page" data-page-title="Galeria de Fotos">
     <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
-    <header class="gallery-header">
-        <nav class="gallery-nav" aria-label="Navegação principal">
-            <a href="../index.html">Início</a>
-            <a href="convite.html">Convite</a>
-            <a href="depoimentos.html">Depoimentos</a>
-            <a href="curiosidades.html">Curiosidades</a>
-            <a href="playlist.html">Playlist</a>
-        </nav>
+    <header class="gallery-hero" role="banner">
         <h1>Galeria do Baile Cósmico</h1>
-        <p>Retratos, detalhes e memórias visuais do Majestic Eighteen de Natasha.</p>
+        <p class="gallery-hero__copy">Retratos, detalhes e memórias visuais do Majestic Eighteen de Natasha.</p>
     </header>
+
+    <nav class="links" aria-label="Navegação principal">
+        <a href="../index.html">Início</a>
+        <a href="convite.html">Convite</a>
+        <a href="depoimentos.html">Depoimentos</a>
+        <a href="curiosidades.html">Curiosidades</a>
+        <a href="playlist.html">Playlist</a>
+    </nav>
 
     <main id="conteudo">
     <section class="galeria" aria-label="Fotos do Baile Cósmico">
@@ -78,7 +79,7 @@
             <div class="contador" id="contador">1 / 30</div>
             <div class="acoes">
                 <button class="btn" id="playPause">Play</button>
-                <button class="btn" id="fullscreen">Tela cheia</button>
+                <button class="btn" id="fullscreen">Ecrã inteiro</button>
                 <button class="btn fechar" id="fechar">&times;</button>
             </div>
         </div>

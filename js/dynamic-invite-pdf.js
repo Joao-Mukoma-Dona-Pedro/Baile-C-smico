@@ -1,53 +1,33 @@
 (function () {
     const STORAGE_KEY = "baile_cosmico_guest_name";
     const DEFAULT_NAME = "Convidado";
+    const EXPORT_MAX_EDGE = 2400;
 
-    // CONFIGURACAO DO PDF DINAMICO
-    // Troque o arquivo assets/convite-base.pdf para mudar o convite base.
-    // Coordenadas em pontos PDF: origem (0,0) fica no canto inferior esquerdo.
-    // A area abaixo substitui apenas o texto "(INSIRA O SEU NUMERO DE AGENTE)".
     const INVITE_CONFIG = {
         basePdfUrl: "../assets/convite-base.pdf",
         pageIndex: 0,
-        filePrefix: "convite-baile-cosmico",
-        agentName: {
-            x: 93,
-            y: 27,
-            maxWidth: 92,
-            fontSize: 7.8,
-            minFontSize: 5.2,
-            font: "CourierBold",
-            color: { r: 0.91, g: 0.74, b: 0.43 },
-            uppercase: true,
-            letterSpacing: 0.35,
-            coverPlaceholder: {
-                x: 56,
-                y: 19,
-                width: 80,
-                height: 21,
-                color: { r: 0.02, g: 0.025, b: 0.06 },
-                opacity: 0.86
-            }
-        }
+        filePrefix: "convite-baile-cosmico"
     };
 
     const params = new URLSearchParams(window.location.search);
     const form = document.querySelector("[data-pdf-name-form]");
     const input = document.querySelector("#pdf-guest-name");
+    const previewShell = document.querySelector("[data-pdf-preview-shell]");
+    const previewImage = document.querySelector(".pdf-preview-image");
+    const previewMask = document.querySelector(".pdf-preview-agent-mask");
     const previewName = document.querySelector("[data-pdf-preview-name]");
     const status = document.querySelector("[data-pdf-status]");
     const download = document.querySelector("[data-download-invite]");
     let currentBlobUrl = "";
 
-    if (!form || !input || !previewName || !download) return;
+    if (!form || !input || !previewShell || !previewName || !previewImage || !download) return;
 
     function normalizeName(value) {
         return (value || "").trim().replace(/\s+/g, " ").slice(0, 42);
     }
 
     function displayName(value) {
-        const name = normalizeName(value) || DEFAULT_NAME;
-        return INVITE_CONFIG.agentName.uppercase ? name.toLocaleUpperCase("pt-PT") : name;
+        return normalizeName(value) || DEFAULT_NAME;
     }
 
     function initialName() {
@@ -70,71 +50,155 @@
         download.setAttribute("aria-disabled", enabled ? "false" : "true");
     }
 
-    async function getFont(pdfDoc, fontName) {
-        const { StandardFonts } = PDFLib;
-        const fonts = {
-            TimesRomanBoldItalic: StandardFonts.TimesRomanBoldItalic,
-            TimesRomanBold: StandardFonts.TimesRomanBold,
-            HelveticaBold: StandardFonts.HelveticaBold,
-            CourierBold: StandardFonts.CourierBold,
-            Courier: StandardFonts.Courier
-        };
-        return pdfDoc.embedFont(fonts[fontName] || StandardFonts.CourierBold);
-    }
-
-    function textWidth(font, text, size, letterSpacing) {
-        const base = font.widthOfTextAtSize(text, size);
-        return base + Math.max(0, text.length - 1) * letterSpacing;
-    }
-
-    function fitFontSize(font, text, desiredSize, minSize, maxWidth, letterSpacing) {
-        let size = desiredSize;
-        while (size > minSize && textWidth(font, text, size, letterSpacing) > maxWidth) size -= 0.2;
-        return Math.max(size, minSize);
-    }
-
-    function drawLetterSpacedText(page, text, x, y, options) {
-        let cursor = x;
-        [...text].forEach((char) => {
-            page.drawText(char, { ...options, x: cursor, y });
-            cursor += options.font.widthOfTextAtSize(char, options.size) + options.letterSpacing;
+    function waitForImage(img) {
+        if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+        return new Promise((resolve, reject) => {
+            img.addEventListener("load", resolve, { once: true });
+            img.addEventListener("error", () => reject(new Error("Imagem do preview não carregou.")), { once: true });
         });
     }
 
-    async function generateInvitePdf(name) {
-        if (!window.PDFLib) throw new Error("O pdf-lib não carregou. Confirma a ligação ou recarrega a página.");
-        const { PDFDocument, rgb } = PDFLib;
-        const response = await fetch(INVITE_CONFIG.basePdfUrl, { cache: "no-store" });
-        if (!response.ok) throw new Error("PDF base não encontrado em assets/convite-base.pdf.");
+    function waitForLayout() {
+        return new Promise((resolve) => {
+            requestAnimationFrame(() => requestAnimationFrame(resolve));
+        });
+    }
 
-        const pdfDoc = await PDFDocument.load(await response.arrayBuffer());
-        const page = pdfDoc.getPages()[INVITE_CONFIG.pageIndex] || pdfDoc.getPages()[0];
-        const font = await getFont(pdfDoc, INVITE_CONFIG.agentName.font);
-        const finalText = displayName(name);
-        const area = INVITE_CONFIG.agentName;
-        const fontSize = fitFontSize(font, finalText, area.fontSize, area.minFontSize, area.maxWidth, area.letterSpacing);
-        const finalWidth = textWidth(font, finalText, fontSize, area.letterSpacing);
-        const x = area.x - finalWidth / 2;
-        const y = area.y;
+    function exportScale(shellWidth, shellHeight) {
+        const maxSide = Math.max(shellWidth, shellHeight);
+        return Math.min(3, EXPORT_MAX_EDGE / Math.max(maxSide, 1));
+    }
 
-        if (area.coverPlaceholder) {
-            const mask = area.coverPlaceholder;
-            page.drawRectangle({
-                x: mask.x,
-                y: mask.y,
-                width: mask.width,
-                height: mask.height,
-                color: rgb(mask.color.r, mask.color.g, mask.color.b),
-                opacity: mask.opacity
-            });
+    /** object-fit: cover — igual ao CSS do preview */
+    function drawImageCover(ctx, img, width, height) {
+        const iw = img.naturalWidth;
+        const ih = img.naturalHeight;
+        const scale = Math.max(width / iw, height / ih);
+        const drawW = iw * scale;
+        const drawH = ih * scale;
+        const offsetX = (width - drawW) / 2;
+        const offsetY = (height - drawH) / 2;
+        ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
+    }
+
+    function drawRoundedRect(ctx, x, y, w, h, radius) {
+        const r = Math.min(radius, w / 2, h / 2);
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    /**
+     * Rasteriza o preview tal como o browser o desenha (posições lidas do DOM).
+     * Não altera CSS nem recalcula coordenadas PDF à parte.
+     */
+    async function renderPreviewCanvas(finalText) {
+        previewName.textContent = finalText;
+        await document.fonts.ready;
+        await waitForImage(previewImage);
+        await waitForLayout();
+
+        const shellW = previewShell.offsetWidth;
+        const shellH = previewShell.offsetHeight;
+        if (!shellW || !shellH) throw new Error("Preview indisponível. Recarrega a página.");
+
+        const scale = exportScale(shellW, shellH);
+        const canvasW = Math.round(shellW * scale);
+        const canvasH = Math.round(shellH * scale);
+        const canvas = document.createElement("canvas");
+        canvas.width = canvasW;
+        canvas.height = canvasH;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) throw new Error("Canvas não suportado neste browser.");
+
+        drawImageCover(ctx, previewImage, canvasW, canvasH);
+
+        const shellRect = previewShell.getBoundingClientRect();
+        const sx = canvasW / shellRect.width;
+        const sy = canvasH / shellRect.height;
+
+        if (previewMask) {
+            const maskRect = previewMask.getBoundingClientRect();
+            const mx = (maskRect.left - shellRect.left) * sx;
+            const my = (maskRect.top - shellRect.top) * sy;
+            const mw = maskRect.width * sx;
+            const mh = maskRect.height * sy;
+            ctx.fillStyle = getComputedStyle(previewMask).backgroundColor || "rgba(3, 5, 13, 0.88)";
+            drawRoundedRect(ctx, mx, my, mw, mh, 2 * scale);
         }
 
-        drawLetterSpacedText(page, finalText, x, y, {
-            size: fontSize,
-            font,
-            color: rgb(area.color.r, area.color.g, area.color.b),
-            letterSpacing: area.letterSpacing
+        const nameRect = previewName.getBoundingClientRect();
+        const nameStyle = getComputedStyle(previewName);
+        const fontSize = parseFloat(nameStyle.fontSize) * sx;
+        const fontWeight = nameStyle.fontWeight || "800";
+        const fontFamily = nameStyle.fontFamily || '"Courier New", Courier, monospace';
+        const textColor = nameStyle.color || "#e8bd6e";
+        const centerX = (nameRect.left - shellRect.left + nameRect.width / 2) * sx;
+        const centerY = (nameRect.top - shellRect.top + nameRect.height / 2) * sy;
+
+        ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+        ctx.fillStyle = textColor;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        if (nameStyle.textShadow && nameStyle.textShadow !== "none") {
+            ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
+            ctx.shadowBlur = 4 * scale;
+        }
+
+        const text = nameStyle.textTransform === "uppercase" ? finalText.toLocaleUpperCase("pt-PT") : finalText;
+        ctx.fillText(text, centerX, centerY);
+        ctx.shadowBlur = 0;
+        return canvas;
+    }
+
+    function canvasToPngBytes(canvas) {
+        return new Promise((resolve, reject) => {
+            canvas.toBlob(
+                (blob) => {
+                    if (!blob) {
+                        reject(new Error("Não foi possível exportar a imagem do preview."));
+                        return;
+                    }
+                    blob.arrayBuffer().then(resolve).catch(reject);
+                },
+                "image/png",
+                1
+            );
         });
+    }
+
+    async function getBasePageSize() {
+        if (!window.PDFLib) return { width: 360, height: 504 };
+        try {
+            const response = await fetch(INVITE_CONFIG.basePdfUrl, { cache: "force-cache" });
+            if (!response.ok) return { width: 360, height: 504 };
+            const pdfDoc = await PDFLib.PDFDocument.load(await response.arrayBuffer());
+            const page = pdfDoc.getPages()[INVITE_CONFIG.pageIndex] || pdfDoc.getPages()[0];
+            return { width: page.getWidth(), height: page.getHeight() };
+        } catch {
+            return { width: 360, height: 504 };
+        }
+    }
+
+    /** PDF = página com a imagem rasterizada do preview (réplica visual). */
+    async function generateInvitePdf(name) {
+        if (!window.PDFLib) throw new Error("O pdf-lib não carregou. Confirma a ligação ou recarrega a página.");
+
+        const finalText = displayName(name);
+        const canvas = await renderPreviewCanvas(finalText);
+        const pngBytes = await canvasToPngBytes(canvas);
+        const { PDFDocument } = PDFLib;
+        const { width, height } = await getBasePageSize();
+
+        const pdfDoc = await PDFDocument.create();
+        const page = pdfDoc.addPage([width, height]);
+        const pngImage = await pdfDoc.embedPng(pngBytes);
+        page.drawImage(pngImage, { x: 0, y: 0, width, height });
 
         return pdfDoc.save();
     }
@@ -148,19 +212,19 @@
         }
 
         try {
-            setStatus("A gerar o PDF personalizado em alta qualidade...");
+            setStatus("A exportar o preview em PDF de alta qualidade...");
             setDownloadEnabled(false);
             localStorage.setItem(STORAGE_KEY, finalName);
 
+            previewName.textContent = displayName(finalName);
             const pdfBytes = await generateInvitePdf(finalName);
             const blob = new Blob([pdfBytes], { type: "application/pdf" });
             if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
             currentBlobUrl = URL.createObjectURL(blob);
-            previewName.textContent = displayName(finalName);
             download.href = currentBlobUrl;
             download.download = `${INVITE_CONFIG.filePrefix}-${slugify(finalName)}.pdf`;
             setDownloadEnabled(true);
-            setStatus(`Pré-visualização pronta para ${finalName}. Nome aplicado apenas na área AGENTE N.º.`);
+            setStatus(`PDF pronto — cópia fiel do preview para ${finalName}.`);
             if (autoDownload) download.click();
         } catch (error) {
             console.error(error);

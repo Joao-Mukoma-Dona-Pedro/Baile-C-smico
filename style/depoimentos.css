@@ -34,50 +34,17 @@ a {
 }
 
 .cordel-hero {
-    min-height: 100vh;
-    background:
-        linear-gradient(180deg, rgba(7, 10, 31, 0.35), rgba(7, 10, 31, 0.94)),
-        url("../imagens/foto-header.jpeg") center / cover fixed;
+    min-height: 60vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-}
-
-.cordel-hero .links {
-    width: 100%;
-    padding: 18px;
-    display: flex;
     justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    background: rgba(8, 12, 37, 0.72);
-    backdrop-filter: blur(12px);
-}
-
-.cordel-hero .links a {
-    color: #f8f7ff;
-    text-decoration: none;
-    font-size: clamp(0.85rem, 2vw, 1rem);
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    padding: 9px 13px;
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    border-radius: 999px;
-    transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
-}
-
-.cordel-hero .links a:hover,
-.cordel-hero .links a:focus-visible {
-    background: var(--lilac);
-    color: var(--ink);
-    transform: translateY(-2px);
+    text-align: center;
+    padding: 40px 16px;
 }
 
 .cordel-hero__content {
     width: min(900px, calc(100% - 32px));
-    margin: auto;
-    padding: 18vh 0 22vh;
+    margin: 0 auto;
     text-shadow: 0 8px 28px rgba(0, 0, 0, 0.75);
 }
 
@@ -313,23 +280,13 @@ a {
 
 @media (max-width: 760px) {
     .cordel-stanza__bg,
-    .cordel-hero {
+    .cordel-stanza--cosmic .cordel-stanza__bg {
         background-attachment: scroll;
     }
 
-    .cordel-hero .links {
-        justify-content: flex-start;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        scrollbar-width: none;
-    }
-
-    .cordel-hero .links::-webkit-scrollbar {
-        display: none;
-    }
-
-    .cordel-hero .links a {
-        flex: 0 0 auto;
+    .cordel-hero {
+        min-height: 70vh;
+        padding: 32px 14px;
     }
 
     .cordel-stanza {
@@ -351,8 +308,7 @@ a {
         transform: none !important;
     }
 
-    .reveal,
-    .cordel-hero .links a {
+    .reveal {
         transition: none;
     }
 }

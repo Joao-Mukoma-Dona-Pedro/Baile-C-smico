@@ -217,10 +217,10 @@
 
 .pdf-preview-name {
     position: absolute;
-    left: 83%;
-    top: 94.64%;
+    left: var(--invite-name-x, 83%);
+    top: var(--invite-name-y, 94.64%);
     transform: translate(-50%, -50%);
-    max-width: 25.55%;
+    max-width: var(--invite-name-max-width, 25.55%);
     color: #e8bd6e;
     font-family: "Courier New", Courier, monospace;
     font-size: clamp(0.46rem, 1.45vw, 0.82rem);
@@ -237,10 +237,10 @@
 }
 .pdf-preview-agent-mask {
     position: absolute;
-    left: 25.83%;
-    top: 95.05%;
-    width: 21.8%;
-    height: 4%;
+    left: var(--invite-mask-x, 25.83%);
+    top: var(--invite-mask-y, 95.05%);
+    width: var(--invite-mask-width, 21.8%);
+    height: var(--invite-mask-height, 4%);
     transform: translate(-50%, -50%);
     border-radius: 2px;
     background: rgba(3, 5, 13, 0.88);
