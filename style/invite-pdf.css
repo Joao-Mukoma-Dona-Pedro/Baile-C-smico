@@ -218,7 +218,7 @@
 .pdf-preview-name {
     position: absolute;
     left: var(--invite-name-x, 83%);
-    top: var(--invite-name-y, 87%);
+    top: var(--invite-name-y, 94%);
     transform: translate(-50%, -50%);
     max-width: var(--invite-name-max-width, 25.55%);
     color: #e8bd6e;
