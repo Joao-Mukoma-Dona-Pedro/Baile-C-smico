@@ -10,7 +10,6 @@ pages/
   convite.html
   galeria.html
   depoimentos.html
-  curiosidades.html
   playlist.html
 assets/
   imagem_do_convite_baile_cosmico.jpeg
@@ -24,6 +23,7 @@ style/
   depoimentos.css
   playlist.css
 js/
+  mission-data.js
   cosmic-experience.js
   dynamic-invite-pdf.js
   seo.js
@@ -35,7 +35,7 @@ vercel.json
 
 ## Convite PDF dinamico
 
-O sistema usa `pdf-lib` no navegador para exportar um PDF a partir do preview do convite (imagem oficial + nome do convidado), garantindo fidelidade visual total.
+O sistema usa `pdf-lib` no navegador para exportar um PDF a partir do preview do convite, garantindo fidelidade visual total.
 
 Fluxo:
 
@@ -45,17 +45,52 @@ Fluxo:
 
 - Detecta `nome` na URL ou pede manualmente na pagina do convite.
 - Usa a imagem oficial do convite e integra o nome do convidado no preview.
-- O download gera um PDF como replica visual do preview (canvas), sem recalcular coordenadas no PDF.
+- Integra a assinatura cosmica confidencial a partir de `js/mission-data.js`.
+- O download gera um PDF como replica visual do preview (canvas), sem recalcular posicoes no PDF.
 - Ativa o botao `Baixar Convite` para baixar o PDF personalizado.
 - Funciona sem backend, compativel com Vercel.
 
-### Posicao do nome no preview
+## Sistema de identidade confidencial
 
-Ajuste apenas em `style/invite-pdf.css` (classe `.pdf-preview-name`). A mascara `.pdf-preview-agent-mask` e opcional.
+Os dados oficiais ficam em:
 
-O PDF descarregado e gerado por rasterizacao do preview: o script mede a posicao real no ecran (`getBoundingClientRect`) e exporta via canvas — nao recalcula texto no PDF.
-- `color`: cor RGB normalizada de `0` a `1`.
-- `font`: fonte padrao do `pdf-lib`.
+```text
+js/mission-data.js
+```
+
+Estrutura:
+
+```js
+const CONFIDENTIAL_CODES = {
+    1: "RA 13h DEC -49°",
+    2: "RA 18h DEC +38°",
+    3: "RA 05h DEC -05°",
+    4: "RA 17h DEC -23°"
+};
+
+const GUESTS = [
+    {
+        nome: "Joao Mukoma Dona Pedro",
+        codigo: 4,
+        aliases: ["Joao", "Joao Pedro", "Joao Mukoma"]
+    }
+];
+```
+
+Para editar convidados, altere `GUESTS`.
+Para editar assinaturas cosmicas, altere `CONFIDENTIAL_CODES`.
+
+O reconhecimento ignora maiusculas/minusculas, acentos, nomes parciais e sobrenomes adicionais quando estes estiverem nos aliases do convidado.
+
+### Posicao no preview
+
+Ajuste apenas em `style/invite-pdf.css`:
+
+- `.pdf-preview-name`: nome do convidado.
+- `.pdf-preview-agent-mask`: area escurecida ao lado da fingerprint.
+- `.pdf-preview-agent-code`: assinatura cosmica confidencial.
+
+O PDF descarregado e gerado por rasterizacao do preview: o script mede a posicao real no ecra (`getBoundingClientRect`) e exporta via canvas.
 
 ## Como trocar a imagem do convite futuramente
 
@@ -69,11 +104,11 @@ assets/imagem_do_convite_baile_cosmico.jpeg
 
 - Personalizacao por link: `/?nome=Natasha`.
 - Nome persistido em `localStorage` e preservado nos links internos.
-- Preview e download de PDF personalizado em tempo real com `pdf-lib` (o PDF e uma rasterizacao do preview).
+- Preview e download de PDF personalizado em tempo real com `pdf-lib`.
 - Ajuste automatico de fonte para nomes longos.
 - Botao elegante de voltar em todas as paginas.
 - Loading screen, transicoes suaves e visual premium/cinematografico.
-- Portal hacker cinematografico na primeira visita (`js/cosmic-gate.js`).
+- Portal cinematografico na primeira visita (`js/cosmic-gate.js`).
 - Confirmacao de presenca na pagina do convite (`js/rsvp.js`).
 
 ## Teste rapido

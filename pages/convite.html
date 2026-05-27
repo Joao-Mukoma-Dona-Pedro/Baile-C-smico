@@ -36,8 +36,8 @@
         <a href="../index.html">Início</a>
         <a href="galeria.html">Galeria</a>
         <a href="depoimentos.html">Depoimentos</a>
-        <a href="curiosidades.html">Curiosidades</a>
         <a href="playlist.html">Playlist</a>
+        <a href="convite.html">Convite</a>
     </nav>
     <main id="conteudo">
         <section class="dynamic-invite" aria-labelledby="convite-dinamico-title">
@@ -54,9 +54,15 @@
             <div class="pdf-preview-shell" data-pdf-preview-shell>
                 <img class="pdf-preview-image" src="../assets/imagem_do_convite_baile_cosmico.jpeg" alt="Pré-visualização do convite oficial" width="914" height="1280" decoding="async" fetchpriority="high">
                 <span class="pdf-preview-agent-mask" aria-hidden="true"></span>
+                <span class="pdf-preview-agent-code" data-pdf-preview-agent-code aria-hidden="true"></span>
                 <span class="pdf-preview-name" data-pdf-preview-name aria-hidden="true"></span>
             </div>
             <div class="pdf-preview-status" data-pdf-status>A preparar o PDF personalizado...</div>
+
+            <section class="mission-briefing" data-mission-briefing aria-live="polite" hidden>
+                <p class="mission-briefing__eyebrow">transmissão confidencial</p>
+                <pre class="mission-briefing__message" data-mission-message></pre>
+            </section>
 
             <div class="invite-actions">
                 <a class="pdf-download is-disabled" href="#" data-download-invite aria-disabled="true">Descarregar convite</a>
@@ -84,6 +90,7 @@
     <footer>
         <p>Desenvolvido por <a href="https://github.com/Joao-Mukoma-Dona-Pedro" target="_blank" rel="noopener noreferrer">João Pedro</a></p>
     </footer>
+    <script src="../js/mission-data.js"></script>
     <script src="../js/cosmic-gate.js"></script>
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js" defer></script>
     <script src="../js/seo.js" defer></script>

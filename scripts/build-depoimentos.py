@@ -87,10 +87,10 @@ page = f"""<!DOCTYPE html>
     <header class="cordel-hero" role="banner">
         <nav class="links" aria-label="Navegação principal">
             <a href="../index.html">Início</a>
-            <a href="convite.html">Convite</a>
             <a href="galeria.html">Galeria</a>
-            <a href="curiosidades.html">Curiosidades</a>
+            <a href="depoimentos.html">Depoimentos</a>
             <a href="playlist.html">Playlist</a>
+            <a href="convite.html">Convite</a>
         </nav>
         <div class="cordel-hero__content reveal">
             <p class="eyebrow">Baile Cósmico</p>

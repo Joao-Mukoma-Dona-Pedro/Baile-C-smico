@@ -14,9 +14,12 @@
     const previewShell = document.querySelector("[data-pdf-preview-shell]");
     const previewImage = document.querySelector(".pdf-preview-image");
     const previewMask = document.querySelector(".pdf-preview-agent-mask");
+    const previewAgentCode = document.querySelector("[data-pdf-preview-agent-code]");
     const previewName = document.querySelector("[data-pdf-preview-name]");
     const status = document.querySelector("[data-pdf-status]");
     const download = document.querySelector("[data-download-invite]");
+    const missionBriefing = document.querySelector("[data-mission-briefing]");
+    const missionMessage = document.querySelector("[data-mission-message]");
     let currentBlobUrl = "";
 
     if (!form || !input || !previewShell || !previewName || !previewImage || !download) return;
@@ -37,6 +40,21 @@
 
     function slugify(value) {
         return normalizeName(value).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "convidado";
+    }
+
+    function resolveMission(name) {
+        return window.BaileCosmicoMission?.resolveGuest(name) || null;
+    }
+
+    function missionText(name, mission) {
+        return window.BaileCosmicoMission?.missionMessage(name, mission) || "";
+    }
+
+    function updateMissionBriefing(name, mission) {
+        if (!missionBriefing || !missionMessage) return;
+
+        missionBriefing.hidden = false;
+        missionMessage.textContent = missionText(name, mission);
     }
 
     function setStatus(message, isError = false) {
@@ -96,8 +114,33 @@
      * Rasteriza o preview tal como o browser o desenha (posições lidas do DOM).
      * Não altera CSS nem recalcula coordenadas PDF à parte.
      */
-    async function renderPreviewCanvas(finalText) {
+    function drawTextElement(ctx, element, text, shellRect, sx, sy, scale) {
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        const fontSize = parseFloat(style.fontSize) * sx;
+        const fontWeight = style.fontWeight || "800";
+        const fontFamily = style.fontFamily || '"Courier New", Courier, monospace';
+        const textColor = style.color || "#e8bd6e";
+        const centerX = (rect.left - shellRect.left + rect.width / 2) * sx;
+        const centerY = (rect.top - shellRect.top + rect.height / 2) * sy;
+
+        ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+        ctx.fillStyle = textColor;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        if (style.textShadow && style.textShadow !== "none") {
+            ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
+            ctx.shadowBlur = 4 * scale;
+        }
+
+        const printableText = style.textTransform === "uppercase" ? text.toLocaleUpperCase("pt-PT") : text;
+        ctx.fillText(printableText, centerX, centerY);
+        ctx.shadowBlur = 0;
+    }
+
+    async function renderPreviewCanvas(finalText, mission) {
         previewName.textContent = finalText;
+        if (previewAgentCode) previewAgentCode.textContent = mission ? mission.codigoConfidencial : "";
         await document.fonts.ready;
         await waitForImage(previewImage);
         await waitForLayout();
@@ -131,27 +174,10 @@
             drawRoundedRect(ctx, mx, my, mw, mh, 2 * scale);
         }
 
-        const nameRect = previewName.getBoundingClientRect();
-        const nameStyle = getComputedStyle(previewName);
-        const fontSize = parseFloat(nameStyle.fontSize) * sx;
-        const fontWeight = nameStyle.fontWeight || "800";
-        const fontFamily = nameStyle.fontFamily || '"Courier New", Courier, monospace';
-        const textColor = nameStyle.color || "#e8bd6e";
-        const centerX = (nameRect.left - shellRect.left + nameRect.width / 2) * sx;
-        const centerY = (nameRect.top - shellRect.top + nameRect.height / 2) * sy;
-
-        ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
-        ctx.fillStyle = textColor;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        if (nameStyle.textShadow && nameStyle.textShadow !== "none") {
-            ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
-            ctx.shadowBlur = 4 * scale;
+        drawTextElement(ctx, previewName, finalText, shellRect, sx, sy, scale);
+        if (previewAgentCode && mission) {
+            drawTextElement(ctx, previewAgentCode, mission.codigoConfidencial, shellRect, sx, sy, scale);
         }
-
-        const text = nameStyle.textTransform === "uppercase" ? finalText.toLocaleUpperCase("pt-PT") : finalText;
-        ctx.fillText(text, centerX, centerY);
-        ctx.shadowBlur = 0;
         return canvas;
     }
 
@@ -180,11 +206,11 @@
     }
 
     /** PDF = página com a imagem rasterizada do preview (réplica visual). */
-    async function generateInvitePdf(name) {
+    async function generateInvitePdf(name, mission) {
         if (!window.PDFLib) throw new Error("O pdf-lib não carregou. Confirma a ligação ou recarrega a página.");
 
         const finalText = displayName(name);
-        const canvas = await renderPreviewCanvas(finalText);
+        const canvas = await renderPreviewCanvas(finalText, mission);
         const pngBytes = await canvasToPngBytes(canvas);
         const { PDFDocument } = PDFLib;
         const { width, height } = getPageSizeFromPreview(canvas);
@@ -210,15 +236,22 @@
             setDownloadEnabled(false);
             localStorage.setItem(STORAGE_KEY, finalName);
 
+            const mission = resolveMission(finalName);
             previewName.textContent = displayName(finalName);
-            const pdfBytes = await generateInvitePdf(finalName);
+            if (previewAgentCode) previewAgentCode.textContent = mission ? mission.codigoConfidencial : "";
+            updateMissionBriefing(finalName, mission);
+            const pdfBytes = await generateInvitePdf(finalName, mission);
             const blob = new Blob([pdfBytes], { type: "application/pdf" });
             if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
             currentBlobUrl = URL.createObjectURL(blob);
             download.href = currentBlobUrl;
             download.download = `${INVITE_CONFIG.filePrefix}-${slugify(finalName)}.pdf`;
             setDownloadEnabled(true);
-            setStatus(`PDF pronto — cópia fiel do preview para ${finalName}.`);
+            if (mission) {
+                setStatus(`PDF pronto — identidade confidencial integrada para ${finalName}.`);
+            } else {
+                setStatus(`PDF pronto — assinatura confidencial pendente para ${finalName}.`);
+            }
             if (autoDownload) download.click();
         } catch (error) {
             console.error(error);

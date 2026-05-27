@@ -20,3 +20,4 @@ Gemfile.lock
 # Local Downloads snapshot; keep only curated assets in Git
 assets/Downloads/
 .vercel
+node_modules

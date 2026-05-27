@@ -10,7 +10,7 @@
     ,{
         titulo: "Salad Days",
         artista: "Mac DeMarco",
-        capa: "../imagens/foto24.jpeg",
+        capa: "../imagens/foto30.jpeg",
         url: "https://open.spotify.com/album/7xPhDaYZ2ejV04aNtdBdvj",
         descricao: "Um dos albuns mais marcantes do Mac DeMarco, perfeito para reforcar a nostalgia da noite.",
         mood: "album nostalgico e charmoso"
@@ -40,17 +40,9 @@
         mood: "sonhador e emocional"
     },
     {
-        titulo: "97",
-        artista: "Doja Cat",
-        capa: "../imagens/Foto 8.jpeg",
-        url: "https://open.spotify.com/search/97%20doja%20cat",
-        descricao: "Uma energia mais ousada para quebrar o ritmo com atitude.",
-        mood: "confiante e urbano"
-    },
-    {
         titulo: "PRIDE",
         artista: "Kendrick Lamar",
-        capa: "../imagens/foto24.jpeg",
+        capa: "../imagens/foto22.jpeg",
         url: "https://open.spotify.com/search/pride%20kendrick%20lamar",
         descricao: "Calma, profunda e perfeita para uma pausa contemplativa.",
         mood: "introspectivo e sofisticado"
@@ -58,7 +50,7 @@
     {
         titulo: "LOVE",
         artista: "Kendrick Lamar e Zacari",
-        capa: "../imagens/foto29.jpeg",
+        capa: "../imagens/foto23.jpeg",
         url: "https://open.spotify.com/search/love%20kendrick%20lamar",
         descricao: "Romantica e acessivel, combina muito bem com o clima do evento.",
         mood: "romantico e caloroso"
@@ -106,7 +98,7 @@
     {
         titulo: "FE!N",
         artista: "Travis Scott",
-        capa: "../imagens/foto21.jpeg",
+        capa: "../imagens/Foto 20.jpeg",
         url: "https://open.spotify.com/search/fein%20travis%20scott",
         descricao: "Serve para levantar a energia da pista de forma agressiva.",
         mood: "intenso e explosivo"
@@ -128,17 +120,9 @@
         mood: "grunge e atmosferico"
     },
     {
-        titulo: "Lithium",
-        artista: "Nirvana",
-        capa: "../imagens/foto25.jpeg",
-        url: "https://open.spotify.com/search/lithium%20nirvana",
-        descricao: "Outra entrada forte para a parte mais crua e emocional da lista.",
-        mood: "cru e catartico"
-    },
-    {
         titulo: "Crazy Train",
         artista: "Ozzy Osbourne",
-        capa: "../imagens/foto26.jpeg",
+        capa: "../imagens/foto30.jpeg",
         url: "https://open.spotify.com/search/crazy%20train%20ozzy%20osbourne",
         descricao: "Uma explosao classica para um momento de energia maxima.",
         mood: "classico e eletrico"
@@ -146,7 +130,7 @@
     {
         titulo: "Made For Lovin You",
         artista: "KISS",
-        capa: "../imagens/foto27.jpeg",
+        capa: "../imagens/foto31.jpeg",
         url: "https://open.spotify.com/search/made%20to%20love%20you%20kiss",
         descricao: "Fecha bem a lista com um espirito mais grandioso e romantico.",
         mood: "romantico e poderoso"
@@ -154,7 +138,7 @@
     {
         titulo: "Money",
         artista: "The Drums",
-        capa: "../imagens/foto28.jpeg",
+        capa: "../imagens/foto32.jpeg",
         url: "https://open.spotify.com/search/money%20the%20drums",
         descricao: "Indie direto e melancolico para manter o charme noturno da playlist.",
         mood: "indie e nostalgico"
@@ -162,7 +146,7 @@
     {
         titulo: "Eleanor Rigby",
         artista: "The Beatles",
-        capa: "../imagens/foto29.jpeg",
+        capa: "../imagens/Foto 18.jpeg",
         url: "https://open.spotify.com/search/eleanor%20rigby%20the%20beatles",
         descricao: "Um classico dramatico e sofisticado que acrescenta profundidade a selecao.",
         mood: "classico e teatral"
