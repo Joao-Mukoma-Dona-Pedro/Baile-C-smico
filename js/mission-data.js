@@ -15,6 +15,9 @@
             "Ozzy Osbourne",
             "Rauha",
             "Domingos",
+            "Nazaré Hafeni",
+            "Reinaldo Vaz",
+            "Gilberto Tuahafeni",
             "Ariel Hidínua",
             "Balduíno Victor",
             "Esleidy",
@@ -24,10 +27,7 @@
             "Edvirgem",
             "Relícia",
             "Edvânia",
-            "Nazaré Hafeni",
-            "Reinaldo Vaz",
-            "Gilberto Tuahafeni",
-            "Jota Zua"
+            "Édson Figueira"
         ],
         2: [
             "Gilson",
@@ -35,19 +35,18 @@
             "Obama",
             "Dioclésia",
             "Mariene",
+            "Tóldia",
+            "Celciosa",
             "Arilton",
-            "Miriam",
-            "Lweni"
+            "Valndresa",
+            "Jota Zua"
         ],
         3: [
-            "Josi",
             "Leogiany",
-            "Félix",
-            "Hilário",
-            "Valndresa",
             "Júlia",
-            "Tóldia",
-            "Édson Figueira",
+            "Miriam",
+            "Félix",
+            "Célcia",
             "Florinda Ngufwenya",
             "Ana Figueira"
         ],
@@ -74,39 +73,39 @@
     );
 
     const MESSAGE_TEMPLATES = [
-        ({ primeiroNome, codigoConfidencial }) => [
+        ({ primeiroNome }) => [
             `Agente ${primeiroNome},`,
             "",
             "Foste seleccionado para uma operação cósmica confidencial.",
             "",
-            `Coordenadas confirmadas: ${codigoConfidencial}.`,
+            "A assinatura secreta da tua missão foi desbloqueada.",
             "",
             "Prepara-te para o embarque."
         ],
-        ({ primeiroNome, codigoConfidencial }) => [
+        ({ primeiroNome }) => [
             `Agente ${primeiroNome},`,
             "",
             "O universo convocou-te através de um canal reservado.",
             "",
-            `A tua identidade orbital foi validada em ${codigoConfidencial}.`,
+            "A tua identidade orbital foi validada em silêncio.",
             "",
             "Atravessa o portal quando a noite acender."
         ],
-        ({ primeiroNome, codigoConfidencial }) => [
+        ({ primeiroNome }) => [
             `Agente ${primeiroNome},`,
             "",
             "A estação orbital confirmou o teu sinal.",
             "",
-            `Código reservado integrado no convite: ${codigoConfidencial}.`,
+            "Um código reservado foi integrado no convite.",
             "",
             "Mantém a frequência. A missão aproxima-se."
         ],
-        ({ primeiroNome, codigoConfidencial }) => [
+        ({ primeiroNome }) => [
             `Agente ${primeiroNome},`,
             "",
             "Uma frequência rara atravessou o cosmos e encontrou o teu nome.",
             "",
-            `Autorização selada nas coordenadas ${codigoConfidencial}.`,
+            "A autorização foi selada no campo escuro do convite.",
             "",
             "Chega como quem conhece o segredo das estrelas."
         ]
@@ -257,8 +256,7 @@
         }
 
         const payload = {
-            primeiroNome: mission.primeiroNome || firstName(name || mission.nome),
-            codigoConfidencial: mission.codigoConfidencial
+            primeiroNome: mission.primeiroNome || firstName(name || mission.nome)
         };
 
         return MESSAGE_TEMPLATES[messageIndex(name || mission.nome, mission.codigo)](payload).join("\n");

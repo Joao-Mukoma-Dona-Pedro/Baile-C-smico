@@ -6,6 +6,10 @@ html.cosmic-gate-pending body > :not(.cosmic-gate) {
     visibility: hidden;
 }
 
+.cosmic-gate [hidden] {
+    display: none !important;
+}
+
 .cosmic-gate {
     position: fixed;
     inset: 0;
@@ -105,17 +109,30 @@ html.cosmic-gate-pending body > :not(.cosmic-gate) {
 }
 
 .cosmic-gate__panel.is-burning {
-    animation: cosmicAshCollapse 3.2s ease forwards;
+    animation: cosmicAshCollapse 7.2s cubic-bezier(0.18, 0.72, 0.12, 1) forwards;
 }
 
 .cosmic-gate__panel.is-burning::before,
 .cosmic-gate__panel.is-burning::after {
     opacity: 1;
-    animation: cosmicBurnEdge 3.2s ease forwards;
+    animation: cosmicBurnEdge 7.2s cubic-bezier(0.22, 0.76, 0.18, 1) forwards;
 }
 
 .cosmic-gate__panel.is-burning .cosmic-transmission__text {
-    animation: cosmicTextAsh 3s ease forwards;
+    animation: cosmicTextAsh 6.5s cubic-bezier(0.18, 0.72, 0.12, 1) forwards;
+}
+
+.cosmic-gate__panel.is-burning .cosmic-transmission {
+    animation: cosmicTransmissionBurn 7.2s cubic-bezier(0.18, 0.72, 0.12, 1) forwards;
+}
+
+.cosmic-gate__panel.is-burning .cosmic-transmission__footer {
+    animation: cosmicFooterAsh 5.4s ease forwards;
+}
+
+.cosmic-gate__panel.is-burning .cosmic-transmission__scan {
+    animation: cosmicScan 0.7s linear infinite, cosmicHeatGlitch 180ms steps(2, end) infinite;
+    opacity: 0.9;
 }
 
 .cosmic-gate__title {
@@ -207,10 +224,74 @@ html.cosmic-gate-pending body > :not(.cosmic-gate) {
         rgba(0, 0, 0, 0.38);
     box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.42), 0 0 28px rgba(123, 246, 255, 0.08);
     overflow: hidden;
+    isolation: isolate;
 }
 
 .cosmic-transmission[hidden] {
     display: none;
+}
+
+.cosmic-transmission::before,
+.cosmic-transmission::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 2;
+}
+
+.cosmic-transmission::before {
+    background:
+        radial-gradient(circle at 50% 50%, transparent 0 28%, rgba(53, 14, 3, 0.28) 45%, rgba(0, 0, 0, 0.98) 100%),
+        linear-gradient(90deg, rgba(255, 117, 28, 0.92), transparent 15%, transparent 85%, rgba(255, 51, 14, 0.94)),
+        linear-gradient(180deg, rgba(255, 215, 109, 0.7), transparent 16%, transparent 78%, rgba(68, 12, 5, 0.98));
+    mix-blend-mode: multiply;
+}
+
+.cosmic-transmission::after {
+    background:
+        radial-gradient(ellipse at 8% 22%, rgba(255, 238, 170, 0.9), rgba(255, 108, 27, 0.62) 10%, rgba(46, 6, 2, 0.2) 24%, transparent 30%),
+        radial-gradient(ellipse at 92% 70%, rgba(255, 212, 104, 0.82), rgba(255, 61, 17, 0.62) 11%, rgba(37, 4, 2, 0.24) 25%, transparent 32%),
+        radial-gradient(ellipse at 46% 4%, rgba(255, 240, 168, 0.7), rgba(255, 94, 22, 0.54) 12%, rgba(31, 4, 2, 0.2) 27%, transparent 35%),
+        radial-gradient(ellipse at 50% 98%, rgba(255, 165, 55, 0.72), rgba(119, 20, 7, 0.68) 14%, rgba(9, 2, 1, 0.28) 29%, transparent 38%),
+        repeating-radial-gradient(circle at 14% 10%, rgba(255, 201, 97, 0.62) 0 1px, transparent 1px 12px),
+        repeating-radial-gradient(circle at 90% 82%, rgba(255, 87, 32, 0.45) 0 1px, transparent 1px 16px),
+        radial-gradient(circle at 50% 48%, transparent 0 29%, rgba(255, 139, 37, 0.24) 53%, rgba(0, 0, 0, 0.86) 100%);
+    filter: blur(0.95px) contrast(1.78) saturate(1.34);
+    mix-blend-mode: screen;
+}
+
+.cosmic-gate__panel.is-burning .cosmic-transmission::before {
+    animation: cosmicCharMask 7.2s cubic-bezier(0.18, 0.72, 0.12, 1) forwards;
+}
+
+.cosmic-gate__panel.is-burning .cosmic-transmission::after {
+    animation: cosmicEmberSkin 7.2s cubic-bezier(0.18, 0.72, 0.12, 1) forwards;
+}
+
+.cosmic-transmission__burn {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    mix-blend-mode: screen;
+    filter: saturate(1.2) contrast(1.1);
+}
+
+.cosmic-transmission__burn.is-active {
+    opacity: 1;
+    animation: cosmicBurnCanvasFade 7.2s ease forwards;
+}
+
+.cosmic-gate__panel.is-burning .cosmic-transmission__burn {
+    box-shadow:
+        inset 0 0 46px rgba(255, 214, 108, 0.46),
+        inset 0 0 108px rgba(255, 72, 18, 0.44),
+        inset 0 0 210px rgba(0, 0, 0, 0.86);
 }
 
 .cosmic-transmission__scan {
@@ -284,16 +365,24 @@ html.cosmic-gate-pending body > :not(.cosmic-gate) {
 
 @keyframes cosmicBurnEdge {
     0% {
-        clip-path: inset(0 0 0 0);
-        filter: brightness(1);
+        clip-path: inset(0);
+        filter: brightness(1) saturate(1);
+        opacity: 0.15;
     }
-    48% {
-        clip-path: inset(4% 5% 7% 5%);
-        filter: brightness(1.35) contrast(1.4);
+    28% {
+        clip-path: inset(0.35% 0.7% 1% 0.7%);
+        filter: brightness(1.55) contrast(1.78) saturate(1.45);
+        opacity: 0.92;
+    }
+    62% {
+        clip-path: inset(10% 11% 13% 11%);
+        filter: brightness(0.72) contrast(2.22) saturate(0.9);
+        opacity: 0.88;
     }
     100% {
-        clip-path: inset(48% 46% 48% 46%);
-        filter: brightness(0.2) contrast(2) grayscale(1);
+        clip-path: inset(47% 46% 48% 46%);
+        filter: brightness(0.16) contrast(2.2) grayscale(1);
+        opacity: 0;
     }
 }
 
@@ -302,15 +391,24 @@ html.cosmic-gate-pending body > :not(.cosmic-gate) {
         opacity: 1;
         filter: blur(0);
         transform: translateY(0);
+        clip-path: inset(0);
     }
-    55% {
-        opacity: 0.72;
-        filter: blur(0.5px) contrast(1.6);
+    24% {
+        opacity: 0.96;
+        filter: blur(0.25px) contrast(1.42) saturate(1.25);
+        text-shadow: 0 0 24px rgba(255, 122, 31, 0.32), 1px 0 rgba(255, 62, 20, 0.46), -1px 0 rgba(123, 246, 255, 0.18);
+        clip-path: inset(1% 2% 2% 2%);
+    }
+    58% {
+        opacity: 0.46;
+        filter: blur(1.1px) contrast(2.2) sepia(0.78) brightness(0.76);
+        clip-path: inset(17% 14% 20% 14%);
     }
     100% {
         opacity: 0;
-        filter: blur(5px) grayscale(1);
-        transform: translateY(-18px) scale(0.985);
+        filter: blur(7px) grayscale(1) brightness(0.35);
+        transform: translateY(-26px) scale(0.974);
+        clip-path: inset(49% 46% 49% 46%);
     }
 }
 
@@ -320,14 +418,140 @@ html.cosmic-gate-pending body > :not(.cosmic-gate) {
         filter: none;
         transform: scale(1);
     }
-    72% {
-        opacity: 0.72;
-        filter: sepia(0.6) contrast(1.4);
+    14% {
+        transform: translate3d(-1px, 1px, 0) scale(1.002);
+        filter: saturate(1.12);
+    }
+    42% {
+        transform: translate3d(1px, -1px, 0) scale(0.998);
+        filter: sepia(0.32) contrast(1.38) saturate(1.05);
+    }
+    74% {
+        opacity: 0.7;
+        filter: sepia(0.82) contrast(1.72) brightness(0.58);
     }
     100% {
         opacity: 0;
-        filter: blur(8px) brightness(0.2);
-        transform: scale(0.96) translateY(-10px);
+        filter: blur(10px) brightness(0.16) grayscale(1);
+        transform: scale(0.952) translateY(-18px);
+    }
+}
+
+@keyframes cosmicTransmissionBurn {
+    0% {
+        border-color: rgba(123, 246, 255, 0.18);
+        box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.42), 0 0 28px rgba(123, 246, 255, 0.08);
+        filter: none;
+    }
+    20% {
+        border-color: rgba(255, 151, 58, 0.6);
+        box-shadow: inset 0 0 88px rgba(0, 0, 0, 0.66), 0 0 48px rgba(255, 83, 25, 0.3);
+        filter: saturate(1.18) contrast(1.18);
+    }
+    54% {
+        border-color: rgba(47, 18, 10, 0.95);
+        box-shadow: inset 0 0 138px rgba(0, 0, 0, 0.92), 0 0 56px rgba(255, 61, 18, 0.24);
+        filter: sepia(0.64) contrast(1.62) saturate(0.95);
+    }
+    100% {
+        border-color: rgba(0, 0, 0, 0);
+        box-shadow: inset 0 0 120px rgba(0, 0, 0, 1), 0 0 0 rgba(0, 0, 0, 0);
+        filter: grayscale(1) brightness(0.26) blur(3px);
+    }
+}
+
+@keyframes cosmicCharMask {
+    0% {
+        opacity: 0;
+        clip-path: inset(0);
+        transform: scale(1);
+    }
+    16% {
+        opacity: 0.9;
+        clip-path: inset(0);
+    }
+    54% {
+        opacity: 0.98;
+        clip-path: inset(6% 7% 9% 7% round 10px);
+    }
+    100% {
+        opacity: 0;
+        clip-path: inset(46% 44% 46% 44% round 16px);
+        transform: scale(0.985);
+    }
+}
+
+@keyframes cosmicEmberSkin {
+    0% {
+        opacity: 0;
+        clip-path: inset(0);
+        transform: scale(1);
+    }
+    18% {
+        opacity: 0.82;
+        clip-path: inset(0);
+        filter: blur(0.8px) contrast(1.9) saturate(1.5);
+    }
+    50% {
+        opacity: 1;
+        clip-path: inset(6% 7% 8% 7%);
+        transform: scale(1.006);
+    }
+    82% {
+        opacity: 0.28;
+        clip-path: inset(28% 26% 31% 26%);
+    }
+    100% {
+        opacity: 0;
+        clip-path: inset(49% 49% 49% 49%);
+    }
+}
+
+@keyframes cosmicFooterAsh {
+    0%, 24% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: none;
+    }
+    64% {
+        opacity: 0.42;
+        transform: translateY(-8px);
+        filter: blur(1px) sepia(0.8);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-18px);
+        filter: blur(5px) grayscale(1);
+    }
+}
+
+@keyframes cosmicHeatGlitch {
+    0%, 100% {
+        transform: translate(0, 0) skewX(0deg);
+    }
+    45% {
+        transform: translate(1px, -1px) skewX(0.5deg);
+    }
+    70% {
+        transform: translate(-1px, 1px) skewX(-0.35deg);
+    }
+}
+
+@keyframes cosmicBurnCanvasFade {
+    0% {
+        opacity: 0;
+        filter: blur(0) saturate(1.1) contrast(1);
+    }
+    10% {
+        opacity: 0.9;
+    }
+    72% {
+        opacity: 1;
+        filter: blur(0.2px) saturate(1.35) contrast(1.2);
+    }
+    100% {
+        opacity: 0;
+        filter: blur(6px) saturate(0.4) contrast(1.8);
     }
 }
 
@@ -340,8 +564,17 @@ html.cosmic-gate-pending body > :not(.cosmic-gate) {
     .cosmic-gate__panel.is-burning,
     .cosmic-gate__panel.is-burning::before,
     .cosmic-gate__panel.is-burning::after,
-    .cosmic-gate__panel.is-burning .cosmic-transmission__text {
+    .cosmic-gate__panel.is-burning .cosmic-transmission__text,
+    .cosmic-gate__panel.is-burning .cosmic-transmission,
+    .cosmic-gate__panel.is-burning .cosmic-transmission::before,
+    .cosmic-gate__panel.is-burning .cosmic-transmission::after,
+    .cosmic-gate__panel.is-burning .cosmic-transmission__footer,
+    .cosmic-transmission__burn.is-active {
         animation: none;
+    }
+
+    .cosmic-transmission__burn {
+        display: none;
     }
 }
 
